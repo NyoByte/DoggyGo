@@ -32,7 +32,6 @@ class AnuncioWalkerFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val user = arguments?.getSerializable("user") as DogWalker
 
         view.findViewById<TextView>(R.id.tviAnuncioName).text = "${user.firstName} ${user.lastName}"

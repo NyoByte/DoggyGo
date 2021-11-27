@@ -11,8 +11,9 @@ class ContractManager(private val context: Context) {
 
     private val dbFirebase = Firebase.firestore
 
-    fun getContracts(callbackOK: (List<Contract>) -> Unit, callbackError: (String) -> Unit){
+    fun getContracts(userId: String,callbackOK: (List<Contract>) -> Unit, callbackError: (String) -> Unit){
         dbFirebase.collection("Contracts")
+            .whereEqualTo("dogWalkerRef", dbFirebase.collection("DogWalkers").document(userId))
             .get()
             .addOnSuccessListener { res ->
                 val contracts = arrayListOf<Contract>()
@@ -33,7 +34,8 @@ class ContractManager(private val context: Context) {
                                         dogAge = docDog.data?.get("age").toString()!!.toInt()!!,
                                         dogBreed = docDog.data?.get("breed").toString()!!,
                                         dogName = docDog.data?.get("name").toString()!!,
-                                        dogWeight = docDog.data?.get("weight").toString()!!.toInt()!!
+                                        dogWeight = docDog.data?.get("weight").toString()!!.toInt()!!,
+                                        photoUrl = docDog.data?.get("photo").toString()!!
                                     )
                                     contracts.add(contract)
                                     if(contracts.size >= res.size()){

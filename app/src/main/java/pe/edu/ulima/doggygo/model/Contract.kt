@@ -10,5 +10,6 @@ data class Contract (
     val dogBreed: String,
     val dogActivityLevel: String,
     val dogAge: Int,
-    val dogWeight: Int
+    val dogWeight: Int,
+    val photoUrl: String
 )

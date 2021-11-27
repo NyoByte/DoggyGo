@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.model.Contract
 
@@ -48,8 +49,9 @@ class ContractListAdapter(private val fragment: Fragment,
         holder.tviContratoFullName.text = contractList[position].dogOwnerFullName
         holder.tviContratoPeso.text = contractList[position].dogWeight.toString()
         holder.tviContratoRaza.text = contractList[position].dogBreed
-        holder.tviContratoDate.text = contractList[position].date.toString()
-        holder.tviContratoTime.text = contractList[position].time.toString()
+        holder.tviContratoDate.text = contractList[position].date
+        holder.tviContratoTime.text = contractList[position].time.toString() + " hrs"
+        Glide.with(fragment).load(contractList[position].photoUrl).into(holder.iviContratoMascota)
     }
 
     override fun getItemCount(): Int {

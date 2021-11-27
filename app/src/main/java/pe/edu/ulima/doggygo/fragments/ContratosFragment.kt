@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.adapter.ContractListAdapter
 import pe.edu.ulima.doggygo.manager.ContractManager
 import pe.edu.ulima.doggygo.model.Contract
+import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
 class ContratosFragment: Fragment() {
@@ -26,13 +29,15 @@ class ContratosFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val user = arguments?.getSerializable("user") as DogWalker
+
         var contractList = mutableListOf<Contract>()
         var currentPage = 0
 
         val rviContract = view.findViewById<RecyclerView>(R.id.rviContracts)
         val contractManager = ContractManager(requireActivity().applicationContext)
 
-        contractManager.getContracts({cList: List<Contract> ->
+        contractManager.getContracts(user.id!!,{cList: List<Contract> ->
             contractList.addAll(cList)
             rviContract.adapter = ContractListAdapter(this, contractList){ contract: Contract ->
                 Log.d("ContratosFragment", contract.id)
