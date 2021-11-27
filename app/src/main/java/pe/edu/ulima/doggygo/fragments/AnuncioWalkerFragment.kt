@@ -14,6 +14,7 @@ import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.R
+import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
 class AnuncioWalkerFragment: Fragment() {
@@ -32,24 +33,25 @@ class AnuncioWalkerFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val user = arguments?.getSerializable("user") as User
+        val user = arguments?.getSerializable("user") as DogWalker
 
         view.findViewById<TextView>(R.id.tviAnuncioName).text = "${user.firstName} ${user.lastName}"
         view.findViewById<TextView>(R.id.tviAnuncioDistrict).text = user.district
         view.findViewById<TextView>(R.id.tviAnuncioAntiguedad).text = user.createdDate
         val eteAnuncioDesc = view.findViewById<TextView>(R.id.eteAnuncioDesc)
-        //eteAnuncioDesc.text = user.desc
+        eteAnuncioDesc.text = user.desc
         val eteAnuncioPrice = view.findViewById<TextView>(R.id.eteAnuncioPrice)
-        //eteAnuncioPrice.text = user.price.toString()
-        //view.findViewById<RatingBar>(R.id.rbaAnuncio).rating = user.score.toFloat()
+        eteAnuncioPrice.text = user.price.toString()
+        view.findViewById<RatingBar>(R.id.rbaAnuncio).rating = user.score.toFloat()
 
-        //if(user.active){
-        if(true){
-            view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = true
-            view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = false
-        }else{
-            view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = false
-            view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = true
+        if(user.active) {
+            if (true) {
+                view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = true
+                view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = false
+            } else {
+                view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = false
+                view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = true
+            }
         }
 
         view.findViewById<Button>(R.id.btnAnuncioGuardar).setOnClickListener {
@@ -59,7 +61,7 @@ class AnuncioWalkerFragment: Fragment() {
                 anuncioActivo = true
             }
 
-            dbFirebase.collection("Users").document(user.id!!)
+            dbFirebase.collection("DogWalkers").document(user.id!!)
                 .update(mapOf(
                     "desc" to eteAnuncioDesc.text.toString(),
                     "price" to eteAnuncioPrice.text.toString().toInt(),

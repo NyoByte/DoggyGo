@@ -88,11 +88,7 @@ class SignupActivity: AppCompatActivity() {
                 "type" to userType,
                 "username" to username,
                 "password" to password,
-                "createdDate" to currentDate,
-                "active" to false,
-                "desc" to "",
-                "price" to 0,
-                "score" to 0
+                "createdDate" to currentDate
             )
 
             dbFirebase.collection("Users")
@@ -103,17 +99,58 @@ class SignupActivity: AppCompatActivity() {
                         dbFirebase.collection("Users")
                             .add(newUser)
                             .addOnSuccessListener {
-                                Toast.makeText(this,"Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show()
-
-                                //Volver al login con data
-                                val bundle = Bundle()
-                                bundle.putString("username",findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString())
-                                bundle.putString("password",findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
-                                val intent = Intent(this, LoginActivity::class.java).apply{
-                                    this.putExtra("data", bundle)
+                                if(userType == "Paseador"){
+                                    val newDogWalker = hashMapOf<String, Any>(
+                                        "active" to false,
+                                        "desc" to "",
+                                        "price" to 0,
+                                        "score" to 0,
+                                        "userRef" to it
+                                    )
+                                    dbFirebase.collection("DogWalkers")
+                                        .add(newDogWalker)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(this,"Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show()
+                                            //Volver al login con data
+                                            val bundle = Bundle()
+                                            bundle.putString("username",findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString())
+                                            bundle.putString("password",findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
+                                            val intent = Intent(this, LoginActivity::class.java).apply{
+                                                this.putExtra("data", bundle)
+                                            }
+                                            setResult(RESULT_OK, intent)
+                                            finish()
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(this,"Ocurrió un erro creando al usuario", Toast.LENGTH_LONG).show()
+                                            println("Error")
+                                            println(it.message!!)
+                                        }
+                                }else if(userType == "Dueño"){
+                                    val newDogOwner = hashMapOf<String, Any>(
+                                        //TODO: Definir atributos para DogOwner
+                                        "userRef" to it
+                                    )
+                                    dbFirebase.collection("DogOwners")
+                                        .add(newDogOwner)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(this,"Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show()
+                                            //Volver al login con data
+                                            val bundle = Bundle()
+                                            bundle.putString("username",findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString())
+                                            bundle.putString("password",findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
+                                            val intent = Intent(this, LoginActivity::class.java).apply{
+                                                this.putExtra("data", bundle)
+                                            }
+                                            setResult(RESULT_OK, intent)
+                                            finish()
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(this,"Ocurrió un erro creando al usuario", Toast.LENGTH_LONG).show()
+                                            println("Error")
+                                            println(it.message!!)
+                                        }
                                 }
-                                setResult(RESULT_OK, intent)
-                                finish()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this,"Error creando el usuario", Toast.LENGTH_SHORT).show()

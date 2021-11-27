@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.doggygo.fragments.*
+import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
 class DogWalkerMainActivity : AppCompatActivity() {
@@ -51,7 +52,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
             true
         }
 
-        user = intent.getSerializableExtra("user") as User
+        user = intent.getSerializableExtra("user") as DogWalker
 
         val mainFragment = fragments[3]
         val args = Bundle().apply {

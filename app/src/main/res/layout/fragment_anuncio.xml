@@ -44,14 +44,16 @@
 
         <TextView
             android:id="@+id/tviAnuncioName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:maxLines="2"
             android:text="Andy Lazo"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/rbaAnuncio"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +77,7 @@
             android:background="@drawable/card_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4">
+            app:layout_constraintTop_toBottomOf="@+id/tviAnuncioDistrict">
 
             <TextView
                 android:id="@+id/tviAnuncioAntiguedad"
@@ -228,14 +230,13 @@
             style="?android:ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
             android:indeterminate="false"
             android:numStars="5"
             android:rating="3"
             android:stepSize="0.1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tviAnuncioName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -245,7 +246,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number|textPersonName|phone"
             android:minHeight="48dp"
             android:text="15"
             android:textSize="14sp"
