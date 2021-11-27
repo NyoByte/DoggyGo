@@ -12,6 +12,14 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".DogWalkerMainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".DogOwnerMainActivity"
             android:exported="true">
         </activity>
         <activity

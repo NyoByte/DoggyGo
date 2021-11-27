@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">DoggyGo</string>
+    <!--Para Menu DogWalker & DogOwner-->>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_certificate">Certificado</string>
+    <string name="menu_review">Calificaciones</string>
+    <string name="menu_walk">Paseos</string>
+    <string name="menu_contract">Contratos</string>
+    <string name="menu_user">Usuario</string>
+    <string name="menu_config">Configuración</string>
+    <string name="menu_pet">Mascotas</string>
+    <string name="menu_walker_advertisement">Mi Anuncio</string>
+    <string name="menu_owner_advertisement">Anuncios</string>
+
 </resources>

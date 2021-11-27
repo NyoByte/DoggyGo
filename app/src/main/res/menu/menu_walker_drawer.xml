@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainProfile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/mainCertificate"
+            android:icon="@drawable/ic_baseline_school_24"
+            android:title="@string/menu_certificate" />
+        <item
+            android:id="@+id/mainReview"
+            android:icon="@drawable/ic_baseline_star_24"
+            android:title="@string/menu_review" />
+        <item
+            android:id="@+id/mainAdvertisement"
+            android:icon="@drawable/ic_baseline_campaign_24"
+            android:title="@string/menu_walker_advertisement" />
+        <item
+            android:id="@+id/mainWalk"
+            android:icon="@drawable/ic_baseline_directions_walk_24"
+            android:title="@string/menu_walk" />
+        <item
+            android:id="@+id/mainContract"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+            android:title="@string/menu_contract" />
+        <item
+            android:id="@+id/mainUser"
+            android:icon="@drawable/ic_baseline_verified_user_24"
+            android:title="@string/menu_user" />
+        <item
+            android:id="@+id/mainConfig"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/menu_config" />
+
+    </group>
+</menu>
