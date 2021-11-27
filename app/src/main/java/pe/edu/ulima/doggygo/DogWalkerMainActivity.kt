@@ -129,7 +129,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
     }
 
     private fun changeContractFragment() {
-        val fragment = fragments[3]
+        val fragment = fragments[5]
         val args = Bundle().apply {
             this.putSerializable("user",user)
         }

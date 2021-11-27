@@ -8,7 +8,7 @@ data class Contract (
     val time: Int,
     val dogName: String,
     val dogBreed: String,
-    val dogActivityLeve: String,
+    val dogActivityLevel: String,
     val dogAge: Int,
     val dogWeight: Int
 )

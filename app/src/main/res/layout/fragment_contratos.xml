@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rviContracts"
         android:layout_width="409dp"
         android:layout_height="653dp"
         android:layout_marginTop="8dp"
@@ -25,5 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:itemCount="10"
-        tools:listitem="@layout/item_contrato" />
+        tools:listitem="@layout/item_contrato"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
