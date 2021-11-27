@@ -6,17 +6,13 @@
             android:icon="@drawable/ic_baseline_person_24"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/mainCertificate"
-            android:icon="@drawable/ic_baseline_school_24"
-            android:title="@string/menu_certificate" />
-        <item
-            android:id="@+id/mainReview"
-            android:icon="@drawable/ic_baseline_star_24"
-            android:title="@string/menu_review" />
+            android:id="@+id/mainPet"
+            android:icon="@drawable/ic_baseline_pets_24"
+            android:title="@string/menu_pet" />
         <item
             android:id="@+id/mainAdvertisement"
-            android:icon="@drawable/ic_baseline_campaign_24"
-            android:title="@string/menu_walker_advertisement" />
+            android:icon="@drawable/ic_baseline_event_24"
+            android:title="@string/menu_owner_advertisement" />
         <item
             android:id="@+id/mainWalk"
             android:icon="@drawable/ic_baseline_directions_walk_24"
