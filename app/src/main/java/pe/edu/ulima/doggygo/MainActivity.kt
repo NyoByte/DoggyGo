@@ -15,15 +15,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments.add(AnuncioFragment())
-
-        val user = intent.getSerializableExtra("user") as User
-
-        val ft = supportFragmentManager.beginTransaction()
-
-        if(user.type == "Paseador"){
-            ft.add(R.id.flaMainContent, fragments[0])
-        }
-        ft.commit()
     }
 }

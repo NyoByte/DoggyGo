@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Anuncio"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/ic_baseline_person_24" />
 
         <TextView
-            android:id="@+id/tviDogWalkerUsername"
+            android:id="@+id/tviAnuncioName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -56,59 +56,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tviDogWalkerDistrict"
+            android:id="@+id/tviAnuncioDistrict"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="La Molina"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintStart_toStartOf="@+id/tviDogWalkerUsername"
-            app:layout_constraintTop_toBottomOf="@+id/tviDogWalkerUsername" />
+            app:layout_constraintStart_toStartOf="@+id/tviAnuncioName"
+            app:layout_constraintTop_toBottomOf="@+id/tviAnuncioName" />
 
-        <ImageView
-            android:id="@+id/tviStar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tviDogWalkerUsername"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_star_24_gold" />
-
-        <ImageView
-            android:id="@+id/tviStar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tviStar1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_star_24_gold" />
-
-        <ImageView
-            android:id="@+id/tviStar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tviStar2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_star_24_gold" />
-
-        <ImageView
-            android:id="@+id/tviStar4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tviStar3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_star_24" />
-
-        <ImageView
-            android:id="@+id/tviStar5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tviStar4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_star_24" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -123,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
             <TextView
-                android:id="@+id/tviAntiguedad"
+                android:id="@+id/tviAnuncioAntiguedad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -141,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                app:layout_constraintStart_toEndOf="@+id/tviAntiguedad"
+                app:layout_constraintStart_toEndOf="@+id/tviAnuncioAntiguedad"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
@@ -158,8 +113,8 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tviAntiguedad"
-                app:layout_constraintTop_toBottomOf="@+id/tviAntiguedad" />
+                app:layout_constraintStart_toStartOf="@+id/tviAnuncioAntiguedad"
+                app:layout_constraintTop_toBottomOf="@+id/tviAnuncioAntiguedad" />
 
             <TextView
                 android:id="@+id/tviResenhas"
@@ -192,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/tviResenhas"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_iconmonstr_favorite_3" />
@@ -228,32 +183,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toEndOf="@+id/tviNumPaseos"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_accessible_forward_24" />
+                app:srcCompat="@drawable/ic_baseline_directions_walk_24"
+                app:tint="@color/purple_500" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/tviDogWalkerDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tviDogWalkerDesc"
+            app:layout_constraintTop_toBottomOf="@+id/eteAnuncioDesc"
             app:srcCompat="@drawable/ic_baseline_text_snippet_24" />
 
         <TextView
@@ -261,35 +205,76 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
             android:layout_marginBottom="24dp"
             android:text="Certificado"
             android:textColor="#21ECF6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
-            app:layout_constraintTop_toBottomOf="@+id/tviDogWalkerDesc" />
+            app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="99dp"
-            android:layout_marginTop="16dp"
             android:text="Precio: S/"
             android:textColor="@color/purple_500"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/tviDogWalkerDesc" />
+            app:layout_constraintTop_toTopOf="@+id/textView12" />
 
-        <TextView
-            android:id="@+id/tviPrecio"
+        <RatingBar
+            android:id="@+id/rbaAnuncio"
+            style="?android:ratingBarStyleSmall"
             android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:indeterminate="false"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="0.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tviAnuncioName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/eteAnuncioPrice"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
             android:text="15"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/tviDogWalkerDesc" />
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+        <EditText
+            android:id="@+id/eteAnuncioDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Escriba la descripción"
+            android:inputType="textShortMessage|textMultiLine|textPersonName"
+            android:lines="7"
+            android:maxLines="10"
+            android:singleLine="false"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -307,7 +292,7 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/cgrDogWalkerState"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -316,13 +301,16 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chpAnuncioActivo"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="85dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
+            android:checked="false"
             android:text="Activo"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chpAnuncioInactivo"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
@@ -332,7 +320,7 @@
     </com.google.android.material.chip.ChipGroup>
 
     <Button
-        android:id="@+id/btnGuardar"
+        android:id="@+id/btnAnuncioGuardar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

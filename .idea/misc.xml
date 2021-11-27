@@ -3,36 +3,49 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/card_background.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_accessible_forward_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_directions_walk_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_event_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_star_24_gold.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_baseline_text_snippet_24.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/drawable/ic_iconmonstr_favorite_3.xml" value="0.22135416666666666" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_dog_owner_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_dog_walker_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_dogwalker_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/activity_signup.xml" value="0.3351851851851852" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/asdasd.xml" value="0.36666666666666664" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/fragment_anuncio.xml" value="0.33" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/menu_header_drawer.xml" value="0.20520833333333333" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/signup.xml" value="0.36666666666666664" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/layout/xd.xml" value="0.36666666666666664" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/menu/menu_header_drwaer.xml" value="0.36666666666666664" />
-        <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/menu/menu_walker_drawer.xml" value="0.33" />
         <entry key="..\:/Programas Estudio/DesktopGitHub/Repositorios locales/DoggyGo/app/src/main/res/menu/s.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/card_background.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_accessible_forward_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_campaign_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_directions_walk_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_event_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_star_24_gold.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_text_snippet_24.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_baseline_verified_user_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_iconmonstr_favorite_3.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/activity_dog_owner_main.xml" value="0.338768115942029" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/activity_dog_walker_main.xml" value="0.338768115942029" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/activity_main.xml" value="0.338768115942029" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/activity_signup.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/fragment_anuncio.xml" value="0.5" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/fragment_contratos.xml" value="0.5" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/item_contrato.xml" value="0.33" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/list_doc_types.xml" value="0.1" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/list_genders.xml" value="0.1" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/layout/menu_header_drawer.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/menu/menu_walker_drawer.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Gabriel/Documents/Android_Projects/DoggyGo/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2838541666666667" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

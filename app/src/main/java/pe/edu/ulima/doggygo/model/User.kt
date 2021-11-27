@@ -17,5 +17,9 @@ import java.io.Serializable
     val address: String,
     val type: String,
     val username: String,
-    val createdDate: String
+    val createdDate: String,
+    val desc: String,
+    val active: Boolean,
+    val price: Int,
+    val score: Int
 ): Serializable{}

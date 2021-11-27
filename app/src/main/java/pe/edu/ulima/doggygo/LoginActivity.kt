@@ -2,7 +2,6 @@ package pe.edu.ulima.doggygo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -25,7 +24,7 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tinUsername = findViewById(R.id.tinName)
+        tinUsername = findViewById(R.id.tinAnuncioDesc)
         tinPassword = findViewById(R.id.tinPassword)
 
         findViewById<TextView>(R.id.tviSignup).setOnClickListener {
@@ -53,6 +52,7 @@ class LoginActivity: AppCompatActivity() {
                         var user: User? = null
                         for(document in documents){
                             user = User(
+                                id = document.id,
                                 firstName = document.data["firstName"].toString(),
                                 lastName = document.data["lastName"].toString(),
                                 type = document.data["type"].toString(),
@@ -67,12 +67,17 @@ class LoginActivity: AppCompatActivity() {
                                 province = document.data["province"].toString(),
                                 district = document.data["district"].toString(),
                                 username = document.data["username"].toString(),
-                                id = null,
+                                active = document.data["active"].toString().toBoolean(),
+                                desc = document.data["desc"].toString(),
+                                price = document.data["price"].toString().toInt(),
+                                score = document.data["score"].toString().toInt()
                             )
                         }
                         if(user != null){
                             intent.putExtra("user", user)
-                            intent.setClass(this, MainActivity::class.java)
+                            if(user.type=="Paseador"){
+                                intent.setClass(this, DogWalkerMainActivity::class.java)
+                            }
                             startActivity(intent)
                         }
                     }

@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/logo_doggygo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tinName"
+        android:id="@+id/tinAnuncioDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -58,7 +58,7 @@
         app:boxBackgroundColor="#81FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tinName">
+        app:layout_constraintTop_toBottomOf="@+id/tinAnuncioDesc">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

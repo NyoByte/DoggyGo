@@ -2,6 +2,7 @@ package pe.edu.ulima.doggygo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
@@ -57,7 +58,7 @@ class SignupActivity: AppCompatActivity() {
             val firstName = findViewById<TextInputLayout>(R.id.tinFirstName).editText?.text.toString()
             val lastName = findViewById<TextInputLayout>(R.id.tinLastName).editText?.text.toString()
             val phone = findViewById<TextInputLayout>(R.id.tinTelf).editText?.text.toString()
-            val age = findViewById<TextInputLayout>(R.id.tinAge).editText?.text.toString()
+            val age = findViewById<TextInputLayout>(R.id.tinAge).editText?.text.toString().toInt()
             val email = findViewById<TextInputLayout>(R.id.tinEmail).editText?.text.toString()
             val doc = findViewById<TextInputLayout>(R.id.tinDocument).editText?.text.toString()
             val address = findViewById<TextInputLayout>(R.id.tinAddress).editText?.text.toString()
@@ -72,7 +73,7 @@ class SignupActivity: AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             val currentDate = sdf.format(Date())
 
-            val newUser = hashMapOf<String, String>(
+            val newUser = hashMapOf<String, Any>(
                 "firstName" to firstName,
                 "lastName" to lastName,
                 "gender" to gender,
@@ -87,28 +88,47 @@ class SignupActivity: AppCompatActivity() {
                 "type" to userType,
                 "username" to username,
                 "password" to password,
-                "createdDate" to currentDate
+                "createdDate" to currentDate,
+                "active" to false,
+                "desc" to "",
+                "price" to 0,
+                "score" to 0
             )
 
             dbFirebase.collection("Users")
-                .add(newUser)
-                .addOnSuccessListener {
-                    Toast.makeText(this,"User created successfully", Toast.LENGTH_SHORT).show()
+                .whereEqualTo("username", username)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if(documents.isEmpty){
+                        dbFirebase.collection("Users")
+                            .add(newUser)
+                            .addOnSuccessListener {
+                                Toast.makeText(this,"Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show()
 
-                    //Volver al login con data
-                    val bundle = Bundle()
-                    bundle.putString("username",findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString())
-                    bundle.putString("password",findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
-                    val intent = Intent(this, LoginActivity::class.java).apply{
-                        this.putExtra("data", bundle)
+                                //Volver al login con data
+                                val bundle = Bundle()
+                                bundle.putString("username",findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString())
+                                bundle.putString("password",findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
+                                val intent = Intent(this, LoginActivity::class.java).apply{
+                                    this.putExtra("data", bundle)
+                                }
+                                setResult(RESULT_OK, intent)
+                                finish()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this,"Error creando el usuario", Toast.LENGTH_SHORT).show()
+                                println(it)
+                            }
+                    }else{
+                        Toast.makeText(this, "El nombre de usuario ya existe", Toast.LENGTH_SHORT).show()
                     }
-                    setResult(RESULT_OK, intent)
-                    finish()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this,"Error creating user", Toast.LENGTH_SHORT).show()
-                    println(it)
+                    Log.e("SignUpActivity", it.message!!)
+                    Toast.makeText(this, "Ocurrió un error creando el usuario", Toast.LENGTH_LONG).show()
                 }
+
+
         }
 
         findViewById<TextView>(R.id.tviSignin).setOnClickListener {
