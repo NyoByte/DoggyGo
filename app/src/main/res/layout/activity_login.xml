@@ -68,7 +68,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnRegistrar"
+        android:id="@+id/btnIngresar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Ingresar"
