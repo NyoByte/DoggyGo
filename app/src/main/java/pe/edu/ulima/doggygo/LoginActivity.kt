@@ -24,7 +24,7 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tinUsername = findViewById(R.id.tinAnuncioDesc)
+        tinUsername = findViewById(R.id.tinUsername)
         tinPassword = findViewById(R.id.tinPassword)
 
         findViewById<TextView>(R.id.tviSignup).setOnClickListener {
@@ -59,7 +59,7 @@ class LoginActivity: AppCompatActivity() {
                                 address = document.data["address"].toString(),
                                 age = document.data["age"].toString(),
                                 nroDoc = document.data["nroDoc"].toString(),
-                                doctype = document.data["doctype"].toString(),
+                                docType = document.data["docType"].toString(),
                                 email = document.data["email"].toString(),
                                 telf = document.data["telf"].toString(),
                                 gender = document.data["gender"].toString(),
@@ -67,10 +67,7 @@ class LoginActivity: AppCompatActivity() {
                                 province = document.data["province"].toString(),
                                 district = document.data["district"].toString(),
                                 username = document.data["username"].toString(),
-                                active = document.data["active"].toString().toBoolean(),
-                                desc = document.data["desc"].toString(),
-                                price = document.data["price"].toString().toInt(),
-                                score = document.data["score"].toString().toInt()
+                                password = document.data["password"].toString(),
                             )
                         }
                         if(user != null){

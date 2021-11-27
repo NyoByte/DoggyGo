@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tviTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Perfil"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tinGenders"
+        app:layout_constraintEnd_toEndOf="@+id/tinTelf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tinFirstName"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinFirstName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Nombres"
+        android:padding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tviTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinLastName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Apellidos"
+        app:layout_constraintEnd_toEndOf="@+id/tinFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/tinFirstName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinGenders"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Género"
+        app:layout_constraintEnd_toEndOf="@+id/tinLastName"
+        app:layout_constraintTop_toBottomOf="@+id/tinLastName">
+        <AutoCompleteTextView
+            android:id="@+id/acoGender"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinTelf"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:hint="Teléfono"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="text|phone"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinAge"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Edad"
+        app:layout_constraintEnd_toEndOf="@+id/tinGenders"
+        app:layout_constraintTop_toBottomOf="@+id/tinGenders">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Correo electrónico"
+        app:layout_constraintEnd_toEndOf="@+id/tinAge"
+        app:layout_constraintStart_toStartOf="@+id/tinTelf"
+        app:layout_constraintTop_toBottomOf="@+id/tinTelf">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinDocumentType"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Tipo Doc"
+        app:layout_constraintStart_toStartOf="@+id/tinEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tinEmail">
+
+        <AutoCompleteTextView
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinDocument"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Nro. Documento"
+        app:layout_constraintEnd_toEndOf="@+id/tinEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tinEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinProvince"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Provincia"
+        app:layout_constraintStart_toStartOf="@+id/tinDocumentType"
+        app:layout_constraintTop_toBottomOf="@+id/tinDocumentType">
+        <AutoCompleteTextView
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinDistrict"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Distrito"
+        app:layout_constraintEnd_toEndOf="@+id/tinDocument"
+        app:layout_constraintTop_toBottomOf="@+id/tinDocument">
+
+        <AutoCompleteTextView
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinAddress"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Dirección"
+        app:layout_constraintEnd_toEndOf="@+id/tinDistrict"
+        app:layout_constraintStart_toStartOf="@+id/tinProvince"
+        app:layout_constraintTop_toBottomOf="@+id/tinProvince">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="textPostalAddress"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnGuadar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="GUARDAR"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tinAddress"
+        app:layout_constraintStart_toStartOf="@+id/tinAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tinAddress" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

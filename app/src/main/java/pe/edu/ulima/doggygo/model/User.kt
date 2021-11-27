@@ -10,16 +10,22 @@ import java.io.Serializable
     val telf: String,
     val age: String,
     val email: String,
-    val doctype: String,
+    val docType: String,
     val nroDoc: String,
     val province: String,
     val district: String,
     val address: String,
     val type: String,
     val username: String,
-    val createdDate: String,
-    val desc: String,
-    val active: Boolean,
-    val price: Int,
-    val score: Int
+    val password: String,
+    val createdDate: String
 ): Serializable{}
+
+// eston irian al crear el model DogWalker
+/*
+val createdDate: String,
+val desc: String,
+val active: Boolean,
+val price: Int,
+val score: Int
+ */

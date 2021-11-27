@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.model.User
 
-class AnuncioFragment: Fragment() {
+class AnuncioWalkerFragment: Fragment() {
 
     private val dbFirebase = Firebase.firestore
 
@@ -38,12 +38,13 @@ class AnuncioFragment: Fragment() {
         view.findViewById<TextView>(R.id.tviAnuncioDistrict).text = user.district
         view.findViewById<TextView>(R.id.tviAnuncioAntiguedad).text = user.createdDate
         val eteAnuncioDesc = view.findViewById<TextView>(R.id.eteAnuncioDesc)
-        eteAnuncioDesc.text = user.desc
+        //eteAnuncioDesc.text = user.desc
         val eteAnuncioPrice = view.findViewById<TextView>(R.id.eteAnuncioPrice)
-        eteAnuncioPrice.text = user.price.toString()
-        view.findViewById<RatingBar>(R.id.rbaAnuncio).rating = user.score.toFloat()
+        //eteAnuncioPrice.text = user.price.toString()
+        //view.findViewById<RatingBar>(R.id.rbaAnuncio).rating = user.score.toFloat()
 
-        if(user.active){
+        //if(user.active){
+        if(true){
             view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = true
             view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = false
         }else{
