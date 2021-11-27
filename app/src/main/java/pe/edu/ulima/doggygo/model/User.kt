@@ -1,6 +1,8 @@
 package pe.edu.ulima.doggygo.model
 
-data class User (
+import java.io.Serializable
+
+ class User (
     val id: String?,
     val firstName: String,
     val lastName: String,
@@ -15,5 +17,5 @@ data class User (
     val address: String,
     val type: String,
     val username: String,
-    val password: String,
-)
+    val createdDate: String
+): Serializable{}

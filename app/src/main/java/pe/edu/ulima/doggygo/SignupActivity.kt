@@ -11,6 +11,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class SignupActivity: AppCompatActivity() {
     private var tinGenders: TextInputLayout? = null
@@ -58,12 +62,15 @@ class SignupActivity: AppCompatActivity() {
             val doc = findViewById<TextInputLayout>(R.id.tinDocument).editText?.text.toString()
             val address = findViewById<TextInputLayout>(R.id.tinAddress).editText?.text.toString()
             val username = findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString()
-            val password = md5(findViewById<TextInputLayout>(R.id.tinLastName).editText?.text.toString())
+            val password = md5(findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
             val gender = findViewById<TextInputLayout>(R.id.tinGenders).editText?.text.toString()
             val docType = findViewById<TextInputLayout>(R.id.tinDocumentType).editText?.text.toString()
             val province = findViewById<TextInputLayout>(R.id.tinProvince).editText?.text.toString()
             val district = findViewById<TextInputLayout>(R.id.tinDistrict).editText?.text.toString()
             val userType = findViewById<Chip>(findViewById<ChipGroup>(R.id.cgrUserType).checkedChipId).text.toString()
+
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val currentDate = sdf.format(Date())
 
             val newUser = hashMapOf<String, String>(
                 "firstName" to firstName,
@@ -79,7 +86,8 @@ class SignupActivity: AppCompatActivity() {
                 "address" to address,
                 "type" to userType,
                 "username" to username,
-                "password" to password
+                "password" to password,
+                "createdDate" to currentDate
             )
 
             dbFirebase.collection("Users")

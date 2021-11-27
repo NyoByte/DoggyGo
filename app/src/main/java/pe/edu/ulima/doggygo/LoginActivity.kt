@@ -2,6 +2,7 @@ package pe.edu.ulima.doggygo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import pe.edu.ulima.doggygo.model.User
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -48,8 +50,31 @@ class LoginActivity: AppCompatActivity() {
                     }else{
                         val intent = Intent()
                         val bundle = Bundle()
-                        intent.setClass(this, MainActivity::class.java)
-                        startActivity(intent)
+                        var user: User? = null
+                        for(document in documents){
+                            user = User(
+                                firstName = document.data["firstName"].toString(),
+                                lastName = document.data["lastName"].toString(),
+                                type = document.data["type"].toString(),
+                                address = document.data["address"].toString(),
+                                age = document.data["age"].toString(),
+                                nroDoc = document.data["nroDoc"].toString(),
+                                doctype = document.data["doctype"].toString(),
+                                email = document.data["email"].toString(),
+                                telf = document.data["telf"].toString(),
+                                gender = document.data["gender"].toString(),
+                                createdDate = document.data["createdDate"].toString(),
+                                province = document.data["province"].toString(),
+                                district = document.data["district"].toString(),
+                                username = document.data["username"].toString(),
+                                id = null,
+                            )
+                        }
+                        if(user != null){
+                            intent.putExtra("user", user)
+                            intent.setClass(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
         }
