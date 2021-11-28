@@ -114,11 +114,22 @@ class DogWalkerMainActivity : AppCompatActivity() {
     }
 
     private fun changeReviewFragment() {
-        TODO("Not yet implemented")
+        val fragment = fragments[2]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.flContent,fragment)
+        ft.commit()
     }
 
     private fun changeAdvertisementFragment() {
-        val fragment = fragments[2]
+        val fragment = fragments[3]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.flContent,fragment)
         ft.commit()
