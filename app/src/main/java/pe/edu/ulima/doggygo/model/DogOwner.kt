@@ -1,5 +1,7 @@
 package pe.edu.ulima.doggygo.model
 
+import com.google.firebase.firestore.DocumentReference
+
 class DogOwner(
     id: String?,
     firstName: String,
@@ -17,8 +19,7 @@ class DogOwner(
     username: String,
     password: String?,
     createdDate: String,
-
-    //TODO: Definir atributos para DogOwner
+    val dogsRef: List<DocumentReference>?
 
 ): User(
     id, firstName, lastName, gender, telf, age, email, docType, nroDoc,

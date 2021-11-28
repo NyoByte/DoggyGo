@@ -25,7 +25,7 @@ class SignupActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        tinGenders = findViewById(R.id.tinGenders)
+        tinGenders = findViewById(R.id.tinPetSex)
         //Llenar el select de géneros
         val genders = listOf("Masculino", "Femenino", "No especificar")
         val gendersAdapter = ArrayAdapter(this,R.layout.list_items, genders)
@@ -53,7 +53,7 @@ class SignupActivity: AppCompatActivity() {
 
         findViewById<Button>(R.id.btnRegistrar).setOnClickListener {
 
-            val firstName = findViewById<TextInputLayout>(R.id.tinFirstName).editText?.text.toString()
+            val firstName = findViewById<TextInputLayout>(R.id.tinPetName).editText?.text.toString()
             val lastName = findViewById<TextInputLayout>(R.id.tinLastName).editText?.text.toString()
             val phone = findViewById<TextInputLayout>(R.id.tinTelf).editText?.text.toString()
             val age = findViewById<TextInputLayout>(R.id.tinAge).editText?.text.toString().toInt()
@@ -62,7 +62,7 @@ class SignupActivity: AppCompatActivity() {
             val address = findViewById<TextInputLayout>(R.id.tinAddress).editText?.text.toString()
             val username = findViewById<TextInputLayout>(R.id.tinUsername).editText?.text.toString()
             val password = md5(findViewById<TextInputLayout>(R.id.tinPassword).editText?.text.toString())
-            val gender = findViewById<TextInputLayout>(R.id.tinGenders).editText?.text.toString()
+            val gender = findViewById<TextInputLayout>(R.id.tinGender).editText?.text.toString()
             val docType = findViewById<TextInputLayout>(R.id.tinDocumentType).editText?.text.toString()
             val province = findViewById<TextInputLayout>(R.id.tinProvince).editText?.text.toString()
             val district = findViewById<TextInputLayout>(R.id.tinDistrict).editText?.text.toString()

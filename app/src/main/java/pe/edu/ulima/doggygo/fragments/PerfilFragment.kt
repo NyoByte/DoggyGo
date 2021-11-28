@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.model.User
@@ -29,7 +28,7 @@ class PerfilFragment: Fragment() {
     }
 
     private fun setUser(view: View, user: User){
-        view.findViewById<TextInputLayout>(R.id.tinFirstName).editText?.setText(user.firstName)
+        view.findViewById<TextInputLayout>(R.id.tinPetName).editText?.setText(user.firstName)
         view.findViewById<TextInputLayout>(R.id.tinLastName).editText?.setText(user.lastName)
         view.findViewById<TextInputLayout>(R.id.tinTelf).editText?.setText(user.telf)
         view.findViewById<TextInputLayout>(R.id.tinAge).editText?.setText(user.age)
@@ -37,14 +36,14 @@ class PerfilFragment: Fragment() {
         view.findViewById<TextInputLayout>(R.id.tinDocument).editText?.setText(user.nroDoc)
         view.findViewById<TextInputLayout>(R.id.tinAddress).editText?.setText(user.address)
 
-        view.findViewById<TextInputLayout>(R.id.tinGenders).editText?.setText(user.gender)
+        view.findViewById<TextInputLayout>(R.id.tinPetSex).editText?.setText(user.gender)
         view.findViewById<TextInputLayout>(R.id.tinDocumentType).editText?.setText(user.docType)
         view.findViewById<TextInputLayout>(R.id.tinProvince).editText?.setText(user.province)
         view.findViewById<TextInputLayout>(R.id.tinDistrict).editText?.setText(user.district)
     }
 
     private fun genSelects(view:View){
-        val tinGenders = view.findViewById<TextInputLayout>(R.id.tinGenders)
+        val tinGenders = view.findViewById<TextInputLayout>(R.id.tinPetSex)
         //Llenar el select de géneros
         val genders = listOf("Masculino", "Femenino", "No especificar")
         val gendersAdapter = ArrayAdapter(requireContext(),R.layout.list_items, genders)

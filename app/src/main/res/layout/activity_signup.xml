@@ -23,15 +23,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tinGenders"
+        app:layout_constraintBottom_toBottomOf="@+id/tinGender"
         app:layout_constraintEnd_toEndOf="@+id/tinTelf"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tinFirstName"
+        app:layout_constraintTop_toTopOf="@+id/tinPetName"
         app:layout_constraintVertical_bias="0.4"
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tinFirstName"
+        android:id="@+id/tinPetName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,8 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:hint="Apellidos"
-        app:layout_constraintEnd_toEndOf="@+id/tinFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/tinFirstName">
+        app:layout_constraintEnd_toEndOf="@+id/tinPetName"
+        app:layout_constraintTop_toBottomOf="@+id/tinPetName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="180dp"
@@ -73,7 +73,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tinGenders"
+        android:id="@+id/tinPetSex"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tinLastName"
         app:layout_constraintTop_toBottomOf="@+id/tinLastName">
         <AutoCompleteTextView
-            android:id="@+id/acoGender"
+            android:id="@+id/acoPetGender"
             android:layout_width="180dp"
             android:layout_height="40dp"
             android:inputType="none"
@@ -122,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:hint="Edad"
-        app:layout_constraintEnd_toEndOf="@+id/tinGenders"
-        app:layout_constraintTop_toBottomOf="@+id/tinGenders">
+        app:layout_constraintEnd_toEndOf="@+id/tinPetSex"
+        app:layout_constraintTop_toBottomOf="@+id/tinPetSex">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="180dp"

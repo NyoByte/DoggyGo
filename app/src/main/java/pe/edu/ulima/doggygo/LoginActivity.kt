@@ -24,6 +24,7 @@ class LoginActivity: AppCompatActivity() {
 
     private val dbFirebase = Firebase.firestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -119,6 +120,7 @@ class LoginActivity: AppCompatActivity() {
                                             district = document.data!!["district"].toString(),
                                             username = document.data!!["username"].toString(),
                                             password = null,
+                                            dogsRef = null //(dogOwnerDocument.data?.get("dogsRef") as ArrayList<DocumentReference>).toArray().toList() as List<DocumentReference>
                                         )
 
                                         intent.putExtra("user", user)
