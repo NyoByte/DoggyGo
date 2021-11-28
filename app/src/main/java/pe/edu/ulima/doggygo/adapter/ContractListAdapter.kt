@@ -8,14 +8,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.model.Contract
 
 class ContractListAdapter(private val fragment: Fragment,
                           private val contractList: MutableList<Contract>,
-                          private val listener: (Contract) -> Unit): RecyclerView.Adapter<ContractListAdapter.ViewHolder>() {
+                          private val listener: (Contract, String) -> Unit): RecyclerView.Adapter<ContractListAdapter.ViewHolder>() {
     class ViewHolder(view: View, val contractList: List<Contract>,
-                     val listener: (Contract) -> Unit): RecyclerView.ViewHolder(view), View.OnClickListener {
+                     val listener: (Contract, String) -> Unit): RecyclerView.ViewHolder(view), View.OnClickListener {
         val iviContratoMascota: ImageView = view.findViewById(R.id.iviContratoMascota)
         val tviContratoFullName: TextView = view.findViewById(R.id.tviContratoFullName)
         val tviContratoDistrict: TextView = view.findViewById(R.id.tviContratoDistrict)
@@ -26,13 +29,16 @@ class ContractListAdapter(private val fragment: Fragment,
         val tviContratoPeso: TextView = view.findViewById(R.id.tviContratoPeso)
         val tviContratoDate: TextView = view.findViewById(R.id.tviContratoDate)
         val tviContratoTime: TextView = view.findViewById(R.id.tviContratoTime)
+        val fabContratoNote: FloatingActionButton = view.findViewById<FloatingActionButton>(R.id.fabContratoNote)
+        val mbuContratoAceptar: MaterialButton = view.findViewById<MaterialButton>(R.id.mbuContratoAceptar)
+        val mbuContratoRechazar: MaterialButton = view.findViewById<MaterialButton>(R.id.mbuContratoRechazar)
 
         init{
             view.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            listener(contractList[adapterPosition])
+
         }
     }
 
@@ -52,6 +58,24 @@ class ContractListAdapter(private val fragment: Fragment,
         holder.tviContratoDate.text = contractList[position].date
         holder.tviContratoTime.text = contractList[position].time.toString() + " hrs"
         Glide.with(fragment).load(contractList[position].photoUrl).into(holder.iviContratoMascota)
+
+        holder.fabContratoNote.setOnClickListener{
+            fragment.context?.let { it1 ->
+                MaterialAlertDialogBuilder(it1)
+                    .setMessage(contractList[position].note)
+                    .setPositiveButton("Ok") { dialog, which ->
+                        println("Ok")
+                    }
+                    .show()
+            }
+        }
+
+        holder.mbuContratoAceptar.setOnClickListener {
+            listener(contractList[position], "aceptado")
+        }
+        holder.mbuContratoRechazar.setOnClickListener {
+            listener(contractList[position], "rechazado")
+        }
     }
 
     override fun getItemCount(): Int {

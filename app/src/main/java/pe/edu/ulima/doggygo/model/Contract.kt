@@ -1,6 +1,8 @@
 package pe.edu.ulima.doggygo.model
 
-data class Contract (
+import com.google.firebase.firestore.DocumentReference
+
+open class Contract (
     val id: String,
     val dogOwnerFullName: String,
     val dogOwnerDistrict: String,
@@ -11,5 +13,7 @@ data class Contract (
     val dogActivityLevel: String,
     val dogAge: Int,
     val dogWeight: Int,
-    val photoUrl: String
-)
+    val photoUrl: String,
+    val note: String,
+    val walkRef: DocumentReference?
+){}

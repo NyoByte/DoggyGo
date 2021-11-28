@@ -37,10 +37,19 @@ class ContratosFragment: Fragment() {
         val rviContract = view.findViewById<RecyclerView>(R.id.rviContracts)
         val contractManager = ContractManager(requireActivity().applicationContext)
 
-        contractManager.getContracts(user.id!!,{cList: List<Contract> ->
+        contractManager.getContracts(user.id!!,false,{cList: List<Contract> ->
             contractList.addAll(cList)
-            rviContract.adapter = ContractListAdapter(this, contractList){ contract: Contract ->
-                Log.d("ContratosFragment", contract.id)
+            rviContract.adapter = ContractListAdapter(this, contractList){ contract: Contract, state: String ->
+                contractManager.updateContractState(contract.id, state, {
+                    Toast.makeText(activity, "Contrato actualizado correctamente", Toast.LENGTH_SHORT).show()
+
+                    val pos = contractList.indexOf(contract)
+                    contractList.removeAt(pos)
+                    rviContract.adapter?.notifyItemRemoved(pos)
+                }, {
+                    Toast.makeText(activity, "Error al actualizar el contrato", Toast.LENGTH_SHORT).show()
+                    println(it)
+                })
             }
         }, {error ->
             println(error)
