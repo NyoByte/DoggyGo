@@ -2,12 +2,14 @@ package pe.edu.ulima.doggygo
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.doggygo.fragments.*
+import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
@@ -17,6 +19,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
     private var nameFragment:String? = null
     private lateinit var dlaMain: DrawerLayout
     private lateinit var user: DogWalker
+    private lateinit var userManager: UserManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
         val intentData:Bundle? = intent.getBundleExtra("data")
         nameFragment = intentData?.getString("namefragment")
 
-        fragments.add(PerfilFragment())
+        fragments.add(PerfilFragment("dogWalker"))
         fragments.add(CertificadoFragment())
         fragments.add(CalificacionFragment())
         fragments.add(AnuncioWalkerFragment())
@@ -52,7 +55,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
             dlaMain.closeDrawers()
             true
         }
-
+        userManager = UserManager(this)
         user = intent.getSerializableExtra("user") as DogWalker
         val mainFragment = fragments[3]
         val args = Bundle().apply {
@@ -97,13 +100,20 @@ class DogWalkerMainActivity : AppCompatActivity() {
 
     private fun changeProfileFragment() {
         val fragment = fragments[0]
-        val args = Bundle().apply {
-            this.putSerializable("user",user)
-        }
-        fragment.arguments = args
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.flContent,fragment)
-        ft.commit()
+        userManager.getUserDogWalkerById(user!!.id!!, {dogWalker: DogWalker ->
+            user = dogWalker
+            val args = Bundle().apply {
+                this.putSerializable("user",user)
+                println("**->"+user.id)
+            }
+            fragment.arguments = args
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.flContent,fragment)
+            ft.commit()
+        }, {error ->
+            println(error)
+            Toast.makeText(this, "Error obtaining user", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun changeCertificateFragment() {

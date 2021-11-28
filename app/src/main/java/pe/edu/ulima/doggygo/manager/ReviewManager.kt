@@ -28,8 +28,8 @@ class ReviewManager(private val context: Context) {
                                         score = document.data["score"].toString().toFloat(),
                                         comment = document.data["comment"].toString(),
                                         date = document.data["date"].toString(),
-                                        dogWalker_id = (docOwner.data!!["dogWalkerRef"] as DocumentReference).id,
-                                        dogOwner_id = (docOwner.data!!["dogOwnerRef"] as DocumentReference).id,
+                                        dogWalker_id = (document.data["dogWalkerRef"] as DocumentReference).id,
+                                        dogOwner_id = (document.data["dogOwnerRef"] as DocumentReference).id,
                                         photoUrl = docUser.data?.get("photoUrl").toString(),
                                         fullName = docUser.data?.get("firstName").toString() + " " + docUser.data?.get("lastName").toString(),
                                         district = docUser.data?.get("district").toString()
@@ -37,7 +37,6 @@ class ReviewManager(private val context: Context) {
                                     reviews.add(review)
                                     if(reviews.size >= res.size()){
                                         Log.d("ReviewManager", "Loaded reviews from Firebase")
-                                        println()
                                         callbackOK(reviews)
                                     }
                                 }

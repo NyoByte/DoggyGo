@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import pe.edu.ulima.doggygo.R
+import pe.edu.ulima.doggygo.manager.UserManager
+import pe.edu.ulima.doggygo.model.DogOwner
+import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
-class PerfilFragment: Fragment() {
+class PerfilFragment(private val userType: String): Fragment() {
 
     private var user: User? = null
 
@@ -21,14 +26,31 @@ class PerfilFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-        println(user?.id)
         super.onViewCreated(view, savedInstanceState)
+        var userId: String? = null
+
+        if(userType== "dogWalker"){
+            val userWalker = arguments?.getSerializable("user") as DogWalker
+            userId = userWalker.userRef
+        }else if(userType=="dogOwner"){
+            val userOwner = arguments?.getSerializable("user") as DogOwner
+            // TODO ("aun no implementado")
+            userId = null
+        }
+
+        val userManager = UserManager(requireActivity().applicationContext)
+
         setUser(view, user!!)
         genSelects(view)
+
+        view.findViewById<Button>(R.id.btnGuardar).setOnClickListener {
+            val userTemp = getUser(view)
+            userManager.updateUser(userId!!, userTemp)
+        }
     }
 
     private fun setUser(view: View, user: User){
-        view.findViewById<TextInputLayout>(R.id.tinPetName).editText?.setText(user.firstName)
+        view.findViewById<TextInputLayout>(R.id.tinFirstName).editText?.setText(user.firstName)
         view.findViewById<TextInputLayout>(R.id.tinLastName).editText?.setText(user.lastName)
         view.findViewById<TextInputLayout>(R.id.tinTelf).editText?.setText(user.telf)
         view.findViewById<TextInputLayout>(R.id.tinAge).editText?.setText(user.age)
@@ -36,14 +58,32 @@ class PerfilFragment: Fragment() {
         view.findViewById<TextInputLayout>(R.id.tinDocument).editText?.setText(user.nroDoc)
         view.findViewById<TextInputLayout>(R.id.tinAddress).editText?.setText(user.address)
 
-        view.findViewById<TextInputLayout>(R.id.tinPetSex).editText?.setText(user.gender)
+        view.findViewById<TextInputLayout>(R.id.tinGenders).editText?.setText(user.gender)
         view.findViewById<TextInputLayout>(R.id.tinDocumentType).editText?.setText(user.docType)
         view.findViewById<TextInputLayout>(R.id.tinProvince).editText?.setText(user.province)
         view.findViewById<TextInputLayout>(R.id.tinDistrict).editText?.setText(user.district)
     }
 
+    private fun getUser(view: View): User {
+        return User(
+            null,
+            view.findViewById<TextInputLayout>(R.id.tinFirstName).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinLastName).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinGenders).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinTelf).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinAge).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinEmail).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinDocumentType).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinDocument).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinProvince).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinDistrict).editText?.text.toString(),
+            view.findViewById<TextInputLayout>(R.id.tinAddress).editText?.text.toString(),
+            "", "", "", ""
+        )
+    }
+
     private fun genSelects(view:View){
-        val tinGenders = view.findViewById<TextInputLayout>(R.id.tinPetSex)
+        val tinGenders = view.findViewById<TextInputLayout>(R.id.tinGenders)
         //Llenar el select de géneros
         val genders = listOf("Masculino", "Femenino", "No especificar")
         val gendersAdapter = ArrayAdapter(requireContext(),R.layout.list_items, genders)
@@ -51,7 +91,7 @@ class PerfilFragment: Fragment() {
 
         val tinDocType = view.findViewById<TextInputLayout>(R.id.tinDocumentType)
         //Llenar el select de doc types
-        val docTypeList = listOf("DNI", "Carné de extranjería")
+        val docTypeList = listOf("DNI", "CE")
         val docTypeAdapter = ArrayAdapter(requireContext(),R.layout.list_items, docTypeList)
         (tinDocType?.editText as? AutoCompleteTextView)?.setAdapter(docTypeAdapter)
 
