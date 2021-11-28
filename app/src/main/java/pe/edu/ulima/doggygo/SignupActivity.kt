@@ -13,8 +13,6 @@ import com.google.firebase.ktx.Firebase
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class SignupActivity: AppCompatActivity() {
@@ -53,7 +51,7 @@ class SignupActivity: AppCompatActivity() {
 
         cgrUserType = findViewById(R.id.cgrUserType)
 
-        findViewById<Button>(R.id.btnIngresar).setOnClickListener {
+        findViewById<Button>(R.id.btnRegistrar).setOnClickListener {
 
             val firstName = findViewById<TextInputLayout>(R.id.tinFirstName).editText?.text.toString()
             val lastName = findViewById<TextInputLayout>(R.id.tinLastName).editText?.text.toString()

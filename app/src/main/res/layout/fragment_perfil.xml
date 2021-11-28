@@ -256,7 +256,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnGuadar"
+        android:id="@+id/btnGuardar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="GUARDAR"

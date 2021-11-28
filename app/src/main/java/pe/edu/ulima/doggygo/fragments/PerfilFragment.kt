@@ -22,6 +22,7 @@ class PerfilFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        println(user?.id)
         super.onViewCreated(view, savedInstanceState)
         setUser(view, user!!)
         genSelects(view)

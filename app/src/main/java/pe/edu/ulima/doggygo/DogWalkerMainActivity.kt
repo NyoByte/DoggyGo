@@ -16,12 +16,12 @@ class DogWalkerMainActivity : AppCompatActivity() {
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
     private lateinit var dlaMain: DrawerLayout
-    private lateinit var user: User
+    private lateinit var user: DogWalker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dog_walker_main)
-
+        setTitle("Paseador")
         // Configuracion menu Hamburguesa
         val actionBar = supportActionBar
         actionBar?.setHomeAsUpIndicator(android.R.drawable.ic_menu_more)
@@ -41,6 +41,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
         fragments.add(AnuncioWalkerFragment())
         fragments.add(PaseoWalkerFragment())
         fragments.add(ContratosFragment())
+        fragments.add(UsuarioFragment("dogWalker"))
         fragments.add(ConfiguracionFragment())
 
         nviMain.setNavigationItemSelectedListener {
@@ -53,7 +54,6 @@ class DogWalkerMainActivity : AppCompatActivity() {
         }
 
         user = intent.getSerializableExtra("user") as DogWalker
-
         val mainFragment = fragments[3]
         val args = Bundle().apply {
             this.putSerializable("user",user)
@@ -158,7 +158,14 @@ class DogWalkerMainActivity : AppCompatActivity() {
     }
 
     private fun changeUserFragment() {
-        TODO("Not yet implemented")
+        val fragment = fragments[6]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.flContent,fragment)
+        ft.commit()
     }
 
     private fun changeConfigFragment() {

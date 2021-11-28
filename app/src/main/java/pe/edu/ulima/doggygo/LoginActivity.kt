@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.model.DogOwner
@@ -56,7 +57,7 @@ class LoginActivity: AppCompatActivity() {
                         val document = documents.documents[0]
                         if(document != null){
                             if(document.data!!["type"].toString() == "Paseador"){
-
+                                println("Into->Paseador")
                                 dbFirebase.collection("DogWalkers")
                                     .whereEqualTo("userRef", document.reference)
                                     .get()
@@ -82,7 +83,8 @@ class LoginActivity: AppCompatActivity() {
                                             active = dogWalkerDocument.data!!["active"].toString().toBoolean(),
                                             desc = dogWalkerDocument.data!!["desc"].toString(),
                                             price = dogWalkerDocument.data!!["price"].toString().toInt(),
-                                            score = dogWalkerDocument.data!!["score"].toString().toInt()
+                                            score = dogWalkerDocument.data!!["score"].toString().toInt(),
+                                            userRef = (dogWalkerDocument.data!!["userRef"] as DocumentReference).id
                                         )
 
                                         intent.putExtra("user", user)
@@ -94,6 +96,7 @@ class LoginActivity: AppCompatActivity() {
                                         Log.e("LoginActivity", it.message!!)
                                     }
                             }else if(document.data!!["type"].toString() == "Dueño"){
+                                println("Into->Dueño")
                                 dbFirebase.collection("DogOwners")
                                     .whereEqualTo("userRef", document.reference)
                                     .get()

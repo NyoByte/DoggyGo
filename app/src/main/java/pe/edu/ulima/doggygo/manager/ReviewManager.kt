@@ -28,8 +28,8 @@ class ReviewManager(private val context: Context) {
                                         score = document.data["score"].toString().toFloat(),
                                         comment = document.data["comment"].toString(),
                                         date = document.data["date"].toString(),
-                                        dogWalker_id = document.data["dogWalkerRef"].toString(),
-                                        dogOwner_id = document.data["doOwnerRef"].toString(),
+                                        dogWalker_id = (docOwner.data!!["dogWalkerRef"] as DocumentReference).id,
+                                        dogOwner_id = (docOwner.data!!["dogOwnerRef"] as DocumentReference).id,
                                         photoUrl = docUser.data?.get("photoUrl").toString(),
                                         fullName = docUser.data?.get("firstName").toString() + " " + docUser.data?.get("lastName").toString(),
                                         district = docUser.data?.get("district").toString()
