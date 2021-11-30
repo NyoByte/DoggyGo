@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Media -->
+
+            <!-- Buttons -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iviPetMascota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="7"
+                    android:adjustViewBounds="true"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:id="@+id/tviPetName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Ivy"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Raza:"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tviPetName" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Nivel de actividad:"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Edad:"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Peso:"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+                    <TextView
+                        android:id="@+id/tviPetRaza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pug"
+                        app:layout_constraintStart_toEndOf="@+id/textView20"
+                        app:layout_constraintTop_toBottomOf="@+id/tviPetName" />
+
+                    <TextView
+                        android:id="@+id/tviPetActivityLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alta"
+                        app:layout_constraintStart_toEndOf="@+id/textView21"
+                        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+                    <TextView
+                        android:id="@+id/tviPetEdad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11 meses"
+                        app:layout_constraintStart_toEndOf="@+id/textView22"
+                        app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+                    <TextView
+                        android:id="@+id/tviPetPeso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6 kg"
+                        app:layout_constraintStart_toEndOf="@+id/textView23"
+                        app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabPetEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:scaleType="center"
+                    android:tint="#952F2F"
+                    android:tintMode="src_in"
+                    app:backgroundTint="@android:color/holo_red_light"
+                    app:fabSize="mini"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tviPaseoActivityLevel"
+                    app:srcCompat="@drawable/ic_baseline_edit_24"
+                    app:tint="#FFFFFF" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabPetNotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:scaleType="center"
+                    android:tint="#952F2F"
+                    android:tintMode="src_in"
+                    app:backgroundTint="#2362CF"
+                    app:fabSize="mini"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tviPetActivityLevel"
+                    app:srcCompat="@drawable/ic_baseline_text_snippet_24"
+                    app:tint="#FFFFFF" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

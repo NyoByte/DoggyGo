@@ -7,6 +7,7 @@ import pe.edu.ulima.doggygo.fragments.EditMascotaFragment
 import pe.edu.ulima.doggygo.fragments.MascotasFragment
 import pe.edu.ulima.doggygo.model.DogOwner
 import pe.edu.ulima.doggygo.model.DogWalker
+import pe.edu.ulima.doggygo.model.Pet
 
 class DogOwnerMainActivity : AppCompatActivity(), MascotasFragment.Actions, EditMascotaFragment.Actions {
 
@@ -22,8 +23,14 @@ class DogOwnerMainActivity : AppCompatActivity(), MascotasFragment.Actions, Edit
         fragments.add(MascotasFragment())
         fragments.add(EditMascotaFragment())
 
+
+        val fragment = fragments[0]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
         val ft = supportFragmentManager.beginTransaction()
-        ft.add(R.id.flDogOwnerContent, fragments[0])
+        ft.add(R.id.flDogOwnerContent, fragment)
         ft.commit()
     }
 
@@ -31,6 +38,20 @@ class DogOwnerMainActivity : AppCompatActivity(), MascotasFragment.Actions, Edit
         val fragment = fragments[1]
         val args = Bundle().apply {
             this.putSerializable("user",user)
+        }
+        fragment.arguments = args
+
+        supportFragmentManager.beginTransaction().apply {
+            this.replace(R.id.flDogOwnerContent,fragment)
+            this.commit()
+        }
+    }
+
+    override fun onEditPetClicked(pet: Pet) {
+        val fragment = fragments[1]
+        val args = Bundle().apply {
+            this.putSerializable("user", user)
+            this.putSerializable("pet",pet)
         }
         fragment.arguments = args
 
