@@ -50,6 +50,18 @@ class EditMascotaFragment: Fragment() {
         val user = arguments?.getSerializable("user") as DogOwner
         var pet = arguments?.getSerializable("pet")
 
+        if(pet != null){
+            pet = pet as Pet
+            view.findViewById<EditText>(R.id.etePetName).setText(pet.name)
+            view.findViewById<EditText>(R.id.etePetWeight).setText(pet.weight.toString())
+            view.findViewById<EditText>(R.id.etePetAge).setText(pet.age.toString())
+            view.findViewById<EditText>(R.id.etePetNotes).setText(pet.note)
+            view.findViewById<TextInputLayout>(R.id.tinPetSex).editText?.setText(pet.sex)
+            view.findViewById<TextInputLayout>(R.id.tinPetActivityLevel).editText?.setText(pet.activityLevel)
+            view.findViewById<TextInputLayout>(R.id.tinPetBreed).editText?.setText(pet.breed)
+        }
+
+
         val tinPetSex = view.findViewById<TextInputLayout>(R.id.tinPetSex)
         val sexTypeList = listOf("Masculino", "Femenino")
         val sexTypeAdapter = ArrayAdapter(view.context,R.layout.list_items, sexTypeList)
@@ -64,17 +76,6 @@ class EditMascotaFragment: Fragment() {
         val breedList = listOf("Pitbull", "Shiba Inu")
         val breedAdapter = ArrayAdapter(view.context,R.layout.list_items, breedList)
         (tinPetBreed?.editText as? AutoCompleteTextView)?.setAdapter(breedAdapter)
-
-        if(pet != null){
-            pet = pet as Pet
-            view.findViewById<EditText>(R.id.etePetName).setText(pet.name)
-            view.findViewById<EditText>(R.id.etePetWeight).setText(pet.weight.toString())
-            view.findViewById<EditText>(R.id.etePetAge).setText(pet.age.toString())
-            view.findViewById<EditText>(R.id.etePetNotes).setText(pet.note)
-            view.findViewById<TextInputLayout>(R.id.tinPetSex).editText?.setText(pet.sex)
-            view.findViewById<TextInputLayout>(R.id.tinPetActivityLevel).editText?.setText(pet.activityLevel)
-            view.findViewById<TextInputLayout>(R.id.tinPetBreed).editText?.setText(pet.breed)
-        }
 
         view.findViewById<Button>(R.id.btnPetGuardar).setOnClickListener {
             val name = view.findViewById<EditText>(R.id.etePetName).text.toString()
