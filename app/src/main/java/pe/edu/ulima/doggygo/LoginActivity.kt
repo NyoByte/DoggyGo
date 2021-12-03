@@ -101,8 +101,8 @@ class LoginActivity: AppCompatActivity() {
                                 dbFirebase.collection("DogOwners")
                                     .whereEqualTo("userRef", document.reference)
                                     .get()
-                                    .addOnSuccessListener { dwDoc ->
-                                        val dogOwnerDocument = dwDoc.documents[0]
+                                    .addOnSuccessListener { doDoc ->
+                                        val dogOwnerDocument = doDoc.documents[0]
                                         user = DogOwner(
                                             id = dogOwnerDocument.id,
                                             firstName = document.data!!["firstName"].toString(),
@@ -120,6 +120,7 @@ class LoginActivity: AppCompatActivity() {
                                             district = document.data!!["district"].toString(),
                                             username = document.data!!["username"].toString(),
                                             password = null,
+                                            userRef = (dogOwnerDocument.data!!["userRef"] as DocumentReference).id,
                                             dogsRef = null //(dogOwnerDocument.data?.get("dogsRef") as ArrayList<DocumentReference>).toArray().toList() as List<DocumentReference>
                                         )
 

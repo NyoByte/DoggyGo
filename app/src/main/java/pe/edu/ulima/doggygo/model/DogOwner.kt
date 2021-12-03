@@ -19,6 +19,7 @@ class DogOwner(
     username: String,
     password: String?,
     createdDate: String,
+    val userRef: String,
     val dogsRef: List<DocumentReference>?
 
 ): User(

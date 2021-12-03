@@ -31,9 +31,8 @@ class UsuarioFragment(private val userType: String): Fragment() {
             usernameCurrent = userWalker.username
         }else if(userType=="dogOwner"){
             val userOwner = arguments?.getSerializable("user") as DogOwner
-            // TODO ("aun no implementado")
-            userId = null
-            usernameCurrent = ""
+            userId = userOwner.userRef
+            usernameCurrent = userOwner.username
         }
 
         val userManager = UserManager(requireActivity().applicationContext)

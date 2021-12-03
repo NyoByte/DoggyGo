@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import pe.edu.ulima.doggygo.model.DogOwner
 import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.Review
 import pe.edu.ulima.doggygo.model.User
@@ -50,6 +51,46 @@ class UserManager(private val context: Context) {
                         )
                         Log.d("UserManager","Loaded user from Firebase")
                         callbackOK(dogWalker)
+
+                    }
+                    .addOnFailureListener {
+                        callbackERROR(it.message!!)
+                    }
+            }
+            .addOnFailureListener {
+                callbackERROR(it.message!!)
+            }
+    }
+
+    fun getUserDogOwnerById(userId: String, callbackOK: (DogOwner) -> Unit, callbackERROR: (String) -> Unit){
+        dbFirebase.collection("DogOwners").document(userId)
+            .get()
+            .addOnSuccessListener { docWalker ->
+                (docWalker.data?.get("userRef") as DocumentReference)
+                    .get()
+                    .addOnSuccessListener { docUser ->
+                        val dogOwner = DogOwner(
+                            id = docWalker.id,
+                            firstName = docUser.data?.get("firstName").toString(),
+                            lastName = docUser.data?.get("lastName").toString(),
+                            type = docUser.data?.get("type").toString(),
+                            address = docUser.data?.get("address").toString(),
+                            age = docUser.data?.get("age").toString(),
+                            nroDoc = docUser.data?.get("nroDoc").toString(),
+                            docType = docUser.data?.get("docType").toString(),
+                            email = docUser.data?.get("email").toString(),
+                            telf = docUser.data?.get("telf").toString(),
+                            gender = docUser.data?.get("gender").toString(),
+                            createdDate = docUser.data?.get("createdDate").toString(),
+                            province = docUser.data?.get("province").toString(),
+                            district = docUser.data?.get("district").toString(),
+                            username = docUser.data?.get("username").toString(),
+                            password = null,
+                            userRef = docUser.id,
+                            dogsRef = null // se les atribuye más adelante
+                        )
+                        Log.d("UserManager","Loaded user from Firebase")
+                        callbackOK(dogOwner)
 
                     }
                     .addOnFailureListener {

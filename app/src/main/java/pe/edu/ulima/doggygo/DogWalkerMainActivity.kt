@@ -100,7 +100,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
 
     private fun changeProfileFragment() {
         val fragment = fragments[0]
-        userManager.getUserDogWalkerById(user!!.id!!, {dogWalker: DogWalker ->
+        userManager.getUserDogWalkerById(user.id!!, { dogWalker: DogWalker ->
             user = dogWalker
             val args = Bundle().apply {
                 this.putSerializable("user",user)
@@ -179,7 +179,8 @@ class DogWalkerMainActivity : AppCompatActivity() {
     }
 
     private fun changeConfigFragment() {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
+        Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
