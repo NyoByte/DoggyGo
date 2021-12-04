@@ -36,7 +36,7 @@ class PaseoWalkerFragment: Fragment() {
         val rviWalks = view.findViewById<RecyclerView>(R.id.rviWalks)
         val walkManager = WalkManager(requireActivity().applicationContext)
 
-        walkManager.getWalks(user.id!!,{wList: List<Walk> ->
+        walkManager.getWalks(user.userRef!!,{wList: List<Walk> ->
             wList.forEach {
                 Log.d("WalksManager", it.pee.toString())
             }

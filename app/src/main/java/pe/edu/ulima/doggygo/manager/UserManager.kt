@@ -45,7 +45,9 @@ class UserManager(private val context: Context) {
                             desc = docWalker.get("desc").toString(),
                             price = docWalker.get("price").toString().toInt(),
                             score = docWalker.get("score").toString().toInt(),
-                            userRef = docUser.id
+                            userRef = docUser.id,
+                            numReviews = docWalker.get("numReviews").toString().toInt(),
+                            numWalks = docWalker.get("numWalks").toString().toInt()
                         )
                         Log.d("UserManager","Loaded user from Firebase")
                         callbackOK(dogWalker)

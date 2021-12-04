@@ -14,7 +14,7 @@ class ContractManager(private val context: Context) {
 
     fun getContracts(userId: String,all: Boolean,callbackOK: (List<Contract>) -> Unit, callbackError: (String) -> Unit){
         var query = dbFirebase.collection("Contracts")
-            .whereEqualTo("dogWalkerRef", dbFirebase.collection("DogWalkers").document(userId))
+            .whereEqualTo("dogWalkerRef", dbFirebase.collection("Users").document(userId))
         if(!all){
             query = query.whereEqualTo("state", "pendiente")
         }
@@ -40,8 +40,9 @@ class ContractManager(private val context: Context) {
                                         dogName = docDog.data?.get("name").toString()!!,
                                         dogWeight = docDog.data?.get("weight").toString()!!.toInt()!!,
                                         photoUrl = docDog.data?.get("photo").toString()!!,
-                                        note = docDog.data?.get("note").toString()!!,
-                                        walkRef = document.data["walkRef"] as DocumentReference?
+                                        note = document.data["notes"].toString(),
+                                        walkRef = document.data["walkRef"] as DocumentReference?,
+                                        price = null
                                     )
                                     contracts.add(contract)
                                     if(contracts.size >= res.size()){
@@ -49,6 +50,70 @@ class ContractManager(private val context: Context) {
                                         println()
                                         callbackOK(contracts)
                                     }
+                                }
+                                .addOnFailureListener {
+                                    callbackError(it.message!!)
+                                }
+
+                        }
+                        .addOnFailureListener {
+                            callbackError(it.message!!)
+                        }
+                }
+            }
+            .addOnFailureListener {
+                callbackError(it.message!!)
+            }
+    }
+
+    fun getContractsForOwner(userId: String, all: Boolean, callbackOK: (List<Contract>) -> Unit, callbackError: (String) -> Unit){
+        val dogOwnerReference = dbFirebase.collection("Users").document(userId)
+        var query = dbFirebase.collection("Contracts")
+           .whereEqualTo("dogOwnerReference", dogOwnerReference)
+        if(!all){
+            query = query.whereEqualTo("state", "pendiente")
+        }
+        query.get()
+            .addOnSuccessListener { res ->
+                val contracts = arrayListOf<Contract>()
+                for(document in res){
+                    (document.data["dogWalkerRef"] as DocumentReference)
+                        .get()
+                        .addOnSuccessListener { docWalker ->
+                            (document.data["dogReference"] as DocumentReference)
+                                .get()
+                                .addOnSuccessListener { docDog ->
+                                    dbFirebase.collection("DogWalkers")
+                                        .whereEqualTo("userRef", docWalker.reference)
+                                        .get()
+                                        .addOnSuccessListener { result->
+                                            val walkerDoc = result.documents[0]
+                                            val contract = Contract(
+                                                id = document.id,
+                                                date = document.data["date"].toString(),
+                                                time = document.data["time"].toString().toInt(),
+                                                dogOwnerDistrict = docWalker.data?.get("district").toString()!!,
+                                                dogOwnerFullName = docWalker.data?.get("firstName").toString()!! + " " + docWalker.data?.get("lastName").toString()!!,
+                                                dogActivityLevel = docDog.data?.get("activityLevel")?.toString()!!,
+                                                dogAge = docDog.data?.get("age").toString()!!.toInt()!!,
+                                                dogBreed = docDog.data?.get("breed").toString()!!,
+                                                dogName = docDog.data?.get("name").toString()!!,
+                                                dogWeight = docDog.data?.get("weight").toString()!!.toInt()!!,
+                                                photoUrl = docDog.data?.get("photo").toString()!!,
+                                                note = document.data["notes"].toString(),
+                                                walkRef = document.data["walkRef"] as DocumentReference?,
+                                                price = walkerDoc.data?.get("price").toString().toInt()
+                                            )
+                                            contracts.add(contract)
+                                            if(contracts.size >= res.size()){
+                                                Log.d("ContractManager", "Loaded contracts from Firebase")
+                                                println()
+                                                callbackOK(contracts)
+                                            }
+                                        }
+                                        .addOnFailureListener {
+                                            callbackError(it.message!!)
+                                        }
                                 }
                                 .addOnFailureListener {
                                     callbackError(it.message!!)
@@ -102,5 +167,16 @@ class ContractManager(private val context: Context) {
                     callbackError(it.message!!)
                 }
         }
+    }
+
+    fun deleteContract(contractId: String, callbackOK: () -> Unit, callbackError: (String) -> Unit){
+        dbFirebase.collection("Contracts").document(contractId)
+            .delete()
+            .addOnSuccessListener {
+                callbackOK()
+            }
+            .addOnFailureListener {
+                callbackError(it.message!!)
+            }
     }
 }

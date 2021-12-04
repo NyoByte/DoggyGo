@@ -50,7 +50,7 @@ class DogOwnerMainActivity : AppCompatActivity(),
         fragments.add(MascotasFragment())
         fragments.add(AnunciosOwnerFragment())
         fragments.add(PaseoOwnerFragment())
-        fragments.add(ContratosFragment()) //dos tipos
+        fragments.add(ContratosOwnerFragment()) //dos tipos
         fragments.add(UsuarioFragment("dogOwner"))
         fragments.add(ConfiguracionFragment())
         //Fuera del menú
@@ -197,8 +197,14 @@ class DogOwnerMainActivity : AppCompatActivity(),
     }
 
     private fun changeContractFragment() {
-        // TODO("Not yet implemented")
-        Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show()
+        val fragment = fragments[4]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.flDogOwnerContent,fragment)
+        ft.commit()
     }
 
     private fun changeUserFragment() {

@@ -85,7 +85,9 @@ class LoginActivity: AppCompatActivity() {
                                             desc = dogWalkerDocument.data!!["desc"].toString(),
                                             price = dogWalkerDocument.data!!["price"].toString().toInt(),
                                             score = dogWalkerDocument.data!!["score"].toString().toInt(),
-                                            userRef = (dogWalkerDocument.data!!["userRef"] as DocumentReference).id
+                                            userRef = (dogWalkerDocument.data!!["userRef"] as DocumentReference).id,
+                                            numWalks = dogWalkerDocument.data!!["numWalks"].toString().toInt(),
+                                            numReviews = dogWalkerDocument.data!!["numReviews"].toString().toInt(),
                                         )
 
                                         intent.putExtra("user", user)

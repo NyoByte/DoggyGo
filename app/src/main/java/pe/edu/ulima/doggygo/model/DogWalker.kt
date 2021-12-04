@@ -6,6 +6,8 @@ class DogWalker(
     val price: Int,
     val score: Int,
     val userRef: String,
+    val numWalks: Int,
+    val numReviews: Int,
     id: String?,
     firstName: String,
     lastName: String,

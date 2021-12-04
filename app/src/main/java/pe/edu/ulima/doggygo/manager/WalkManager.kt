@@ -13,35 +13,71 @@ class WalkManager(private val context: Context) {
     fun getWalks(userId: String, callbackOK: (List<Walk>) -> Unit, callbackError: (String) -> Unit){
         val walkList = mutableListOf<Walk>()
         contractManager.getContracts(userId, true, { contractList ->
-            contractList.forEach { contract ->
-                if(contract.walkRef != null){
-                    contract.walkRef.get()
-                        .addOnSuccessListener { walk ->
-                            val newWalk = Walk(
-                                id = walk.id,
-                                note = contract.note,
-                                dogOwnerFullName = contract.dogOwnerFullName,
-                                dogOwnerDistrict = contract.dogOwnerDistrict,
-                                dogWeight = contract.dogWeight,
-                                dogName = contract.dogName,
-                                dogBreed = contract.dogBreed,
-                                dogAge = contract.dogAge,
-                                date = contract.date,
-                                dogActivityLevel = contract.dogActivityLevel,
-                                photoUrl = contract.photoUrl,
-                                time = contract.time,
-                                pee = walk.data?.get("pee").toString().toBoolean(),
-                                poo = walk.data?.get("poo").toString().toBoolean()
-                            )
-                            walkList.add(newWalk)
-                            if(walkList.size == contractList.size){
-                                callbackOK(walkList)
-                            }
+            val contractWalkList = contractList.filter { contract -> contract.walkRef != null }
+            contractWalkList.forEach { contract ->
+                contract.walkRef!!.get()
+                    .addOnSuccessListener { walk ->
+                        val newWalk = Walk(
+                            id = walk.id,
+                            note = contract.note,
+                            dogOwnerFullName = contract.dogOwnerFullName,
+                            dogOwnerDistrict = contract.dogOwnerDistrict,
+                            dogWeight = contract.dogWeight,
+                            dogName = contract.dogName,
+                            dogBreed = contract.dogBreed,
+                            dogAge = contract.dogAge,
+                            date = contract.date,
+                            dogActivityLevel = contract.dogActivityLevel,
+                            photoUrl = contract.photoUrl,
+                            time = contract.time,
+                            pee = walk.data?.get("pee").toString().toBoolean(),
+                            poo = walk.data?.get("poo").toString().toBoolean()
+                        )
+                        walkList.add(newWalk)
+                        if(walkList.size == contractWalkList.size){
+                            callbackOK(walkList)
                         }
-                        .addOnFailureListener {
-                            callbackError(it.message!!)
+                    }
+                    .addOnFailureListener {
+                        callbackError(it.message!!)
+                    }
+            }
+        },{
+            callbackError(it)
+        })
+    }
+
+    fun getWalksForOwner(userId: String, callbackOK: (List<Walk>) -> Unit, callbackError: (String) -> Unit){
+        val walkList = mutableListOf<Walk>()
+        contractManager.getContractsForOwner(userId, true,{ contractList ->
+            val contractWalkList = contractList.filter { contract -> contract.walkRef != null }
+            contractWalkList.forEach { contract ->
+                contract.walkRef!!.get()
+                    .addOnSuccessListener { walk ->
+                        val newWalk = Walk(
+                            id = walk.id,
+                            note = contract.note,
+                            dogOwnerFullName = contract.dogOwnerFullName,
+                            dogOwnerDistrict = contract.dogOwnerDistrict,
+                            dogWeight = contract.dogWeight,
+                            dogName = contract.dogName,
+                            dogBreed = contract.dogBreed,
+                            dogAge = contract.dogAge,
+                            date = contract.date,
+                            dogActivityLevel = contract.dogActivityLevel,
+                            photoUrl = contract.photoUrl,
+                            time = contract.time,
+                            pee = walk.data?.get("pee").toString().toBoolean(),
+                            poo = walk.data?.get("poo").toString().toBoolean()
+                        )
+                        walkList.add(newWalk)
+                        if(walkList.size == contractWalkList.size){
+                            callbackOK(walkList)
                         }
-                }
+                    }
+                    .addOnFailureListener {
+                        callbackError(it.message!!)
+                    }
             }
         },{
             callbackError(it)

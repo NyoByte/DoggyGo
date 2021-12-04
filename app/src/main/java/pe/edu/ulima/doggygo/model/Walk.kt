@@ -17,6 +17,6 @@ class Walk(
     note: String
 ) : Contract(
     id, dogOwnerFullName, dogOwnerDistrict, date, time, dogName,
-    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null
+    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null, null
 ) {
 }
