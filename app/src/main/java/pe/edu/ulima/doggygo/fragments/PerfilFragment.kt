@@ -34,8 +34,7 @@ class PerfilFragment(private val userType: String): Fragment() {
             userId = userWalker.userRef
         }else if(userType=="dogOwner"){
             val userOwner = arguments?.getSerializable("user") as DogOwner
-            // TODO ("aun no implementado")
-            userId = null
+            userId = userOwner.userRef
         }
 
         val userManager = UserManager(requireActivity().applicationContext)

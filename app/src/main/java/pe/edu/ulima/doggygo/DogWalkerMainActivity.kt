@@ -2,6 +2,7 @@ package pe.edu.ulima.doggygo
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -57,6 +58,10 @@ class DogWalkerMainActivity : AppCompatActivity() {
         }
         userManager = UserManager(this)
         user = intent.getSerializableExtra("user") as DogWalker
+
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(user.username)
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviEmail).setText(user.email)
+
         val mainFragment = fragments[3]
         val args = Bundle().apply {
             this.putSerializable("user",user)
