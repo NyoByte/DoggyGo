@@ -12,12 +12,14 @@ import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.doggygo.fragments.*
 import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.model.DogWalker
-import pe.edu.ulima.doggygo.model.User
 
-class DogWalkerMainActivity : AppCompatActivity() {
+class DogWalkerMainActivity : AppCompatActivity(),
+    PerfilFragment.Actions,
+    UsuarioFragment.Actions{
 
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
+    private lateinit var nviMain: NavigationView
     private lateinit var dlaMain: DrawerLayout
     private lateinit var user: DogWalker
     private lateinit var userManager: UserManager
@@ -28,11 +30,11 @@ class DogWalkerMainActivity : AppCompatActivity() {
         setTitle("Paseador")
         // Configuracion menu Hamburguesa
         val actionBar = supportActionBar
-        actionBar?.setHomeAsUpIndicator(android.R.drawable.ic_menu_more)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_hamburger_24)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Configuracion NavigationView
-        val nviMain = findViewById<NavigationView>(R.id.nviMain)
+        nviMain = findViewById(R.id.nviMain)
         dlaMain = findViewById(R.id.dlaMain)
 
         // Fragments
@@ -61,6 +63,7 @@ class DogWalkerMainActivity : AppCompatActivity() {
 
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(user.username)
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviEmail).setText(user.email)
+        nviMain.setCheckedItem(R.id.mainAdvertisement)
 
         val mainFragment = fragments[3]
         val args = Bundle().apply {
@@ -109,7 +112,6 @@ class DogWalkerMainActivity : AppCompatActivity() {
             user = dogWalker
             val args = Bundle().apply {
                 this.putSerializable("user",user)
-                println("**->"+user.id)
             }
             fragment.arguments = args
             val ft = supportFragmentManager.beginTransaction()
@@ -130,13 +132,19 @@ class DogWalkerMainActivity : AppCompatActivity() {
 
     private fun changeReviewFragment() {
         val fragment = fragments[2]
-        val args = Bundle().apply {
-            this.putSerializable("user",user)
-        }
-        fragment.arguments = args
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.flContent,fragment)
-        ft.commit()
+        userManager.getUserDogWalkerById(user.id!!, { dogWalker: DogWalker ->
+            user = dogWalker
+            val args = Bundle().apply {
+                this.putSerializable("user",user)
+            }
+            fragment.arguments = args
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.flContent,fragment)
+            ft.commit()
+        }, {error ->
+            println(error)
+            Toast.makeText(this, "Error obtaining user", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun changeAdvertisementFragment() {
@@ -193,6 +201,15 @@ class DogWalkerMainActivity : AppCompatActivity() {
             dlaMain.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // Listeners
+    override fun onSaveUser_Perfil(email: String) {
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviEmail).setText(email)
+    }
+
+    override fun onSaveUser_Usuario(username:String){
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(username)
     }
 
 }

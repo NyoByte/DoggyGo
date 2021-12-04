@@ -1,24 +1,34 @@
 package pe.edu.ulima.doggygo.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.model.DogOwner
 import pe.edu.ulima.doggygo.model.DogWalker
+import pe.edu.ulima.doggygo.model.Pet
 import pe.edu.ulima.doggygo.model.User
 
 class PerfilFragment(private val userType: String): Fragment() {
 
+    interface Actions{
+        fun onSaveUser_Perfil(email:String)
+    }
+
     private var user: User? = null
+
+    private var listener:Actions? = null
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        listener = context as? Actions
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         user = arguments?.getSerializable("user") as User
@@ -45,6 +55,7 @@ class PerfilFragment(private val userType: String): Fragment() {
         view.findViewById<Button>(R.id.btnGuardar).setOnClickListener {
             val userTemp = getUser(view)
             userManager.updateUser(userId!!, userTemp)
+            listener?.onSaveUser_Perfil(view.findViewById<TextInputLayout>(R.id.tinEmail).editText?.text.toString())
         }
     }
 

@@ -18,10 +18,13 @@ import pe.edu.ulima.doggygo.model.Pet
 
 class DogOwnerMainActivity : AppCompatActivity(),
     MascotasFragment.Actions,
-    EditMascotaFragment.Actions {
+    EditMascotaFragment.Actions,
+    PerfilFragment.Actions,
+    UsuarioFragment.Actions {
 
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
+    private lateinit var nviMain: NavigationView
     private lateinit var dlaMain: DrawerLayout
     private lateinit var user: DogOwner
     private lateinit var userManager: UserManager
@@ -32,11 +35,11 @@ class DogOwnerMainActivity : AppCompatActivity(),
         setTitle("Dueño")
         // Configuracion menu Hamburguesa
         val actionBar = supportActionBar
-        actionBar?.setHomeAsUpIndicator(android.R.drawable.ic_menu_more)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_hamburger_24)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Configuracion NavigationView
-        val nviMain = findViewById<NavigationView>(R.id.nviMain)
+        nviMain = findViewById(R.id.nviMain)
         dlaMain = findViewById(R.id.dlaMain)
 
         // Fragments
@@ -66,6 +69,7 @@ class DogOwnerMainActivity : AppCompatActivity(),
 
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(user.username)
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviEmail).setText(user.email)
+        nviMain.setCheckedItem(R.id.mainPet)
 
         val mainFragment = fragments[1]
         val args = Bundle().apply {
@@ -75,11 +79,6 @@ class DogOwnerMainActivity : AppCompatActivity(),
         val ft = supportFragmentManager.beginTransaction()
         ft.add(R.id.flDogOwnerContent, mainFragment)
         ft.commit()
-    }
-
-    private fun setHeaderMenu(){
-        findViewById<TextView>(R.id.main_header_tviUsername).setText(user.username)
-        findViewById<TextView>(R.id.main_header_tviEmail).setText(user.email)
     }
 
     private fun changeFragment(menuItem: MenuItem){
@@ -223,5 +222,14 @@ class DogOwnerMainActivity : AppCompatActivity(),
             dlaMain.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // Listeners
+    override fun onSaveUser_Perfil(email: String) {
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviEmail).setText(email)
+    }
+
+    override fun onSaveUser_Usuario(username:String){
+        nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(username)
     }
 }

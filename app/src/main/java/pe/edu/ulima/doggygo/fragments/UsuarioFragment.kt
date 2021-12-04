@@ -1,11 +1,17 @@
 package pe.edu.ulima.doggygo.fragments
 
+import android.content.Context
+import android.graphics.ColorFilter
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.TintContextWrapper
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import pe.edu.ulima.doggygo.R
@@ -15,6 +21,17 @@ import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.User
 
 class UsuarioFragment(private val userType: String): Fragment() {
+
+    interface Actions{
+        fun onSaveUser_Usuario(username:String)
+    }
+
+    private var listener: UsuarioFragment.Actions? = null
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        listener = context as? UsuarioFragment.Actions
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_usuario, container, false)
@@ -43,9 +60,28 @@ class UsuarioFragment(private val userType: String): Fragment() {
         tinUsername.editText?.setText(usernameCurrent)
 
         view.findViewById<Button>(R.id.btnGuardar).setOnClickListener {
-            userManager.updateUserAuth(userId!!, tinUsername.editText?.text.toString(), tinPassword.editText?.text.toString())
-            tinUsername.editText?.setText("")
-            tinPassword.editText?.setText("")
+            val usernameEdit = tinUsername.editText?.text
+            val passwordEdit = tinPassword.editText?.text
+            if(saveValidations(usernameEdit, passwordEdit)){
+                if(passwordEdit!!.isEmpty()){
+                    userManager.updateUserAuth(userId!!, usernameEdit.toString())
+                }else{
+                    userManager.updateUserAuth(userId!!, usernameEdit.toString(), passwordEdit.toString())
+                    tinPassword.editText?.setText("")
+                }
+            }
+            listener?.onSaveUser_Usuario(usernameEdit.toString())
         }
+    }
+
+    private fun saveValidations(username: Editable?, password:Editable?): Boolean {
+        if (username.isNullOrBlank()){
+            Toast.makeText(context, "Debe escribir el username", Toast.LENGTH_SHORT).show()
+            return false
+        }else if (password!!.contains(" ") || (password.length<4 && password.isNotEmpty())){
+            Toast.makeText(context, "La password no debe tener espacios y debe contener más de 3 caracteres", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 }

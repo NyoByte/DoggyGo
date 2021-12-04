@@ -21,8 +21,6 @@ class UserManager(private val context: Context) {
         dbFirebase.collection("DogWalkers").document(userId)
             .get()
             .addOnSuccessListener { docWalker ->
-                println("==>"+userId)
-                println("--->>"+(docWalker.data?.get("userRef") as DocumentReference).id)
                 (docWalker.data?.get("userRef") as DocumentReference)
                     .get()
                     .addOnSuccessListener { docUser ->
@@ -110,6 +108,21 @@ class UserManager(private val context: Context) {
             .update(mapOf(
                 "username" to newUsername,
                 "password" to md5Password
+            ))
+            .addOnSuccessListener {
+                Toast.makeText(context, "Credenciales actualizadas correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al actualizar credenciales", Toast.LENGTH_SHORT).show()
+                Log.e("UsuarioFragment", it.message!!)
+            }
+    }
+
+    fun updateUserAuth(userId: String, newUsername: String){
+
+        dbFirebase.collection("Users").document(userId)
+            .update(mapOf(
+                "username" to newUsername,
             ))
             .addOnSuccessListener {
                 Toast.makeText(context, "Credenciales actualizadas correctamente", Toast.LENGTH_SHORT).show()
