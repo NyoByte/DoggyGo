@@ -103,7 +103,8 @@ class SignupActivity: AppCompatActivity() {
                                         "desc" to "",
                                         "price" to 0,
                                         "score" to 0,
-                                        "userRef" to it
+                                        "userRef" to it,
+                                        "certificateAccepted" to false
                                     )
                                     dbFirebase.collection("DogWalkers")
                                         .add(newDogWalker)

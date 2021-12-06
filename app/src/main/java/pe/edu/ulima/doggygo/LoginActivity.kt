@@ -88,6 +88,7 @@ class LoginActivity: AppCompatActivity() {
                                             userRef = (dogWalkerDocument.data!!["userRef"] as DocumentReference).id,
                                             numWalks = dogWalkerDocument.data!!["numWalks"].toString().toInt(),
                                             numReviews = dogWalkerDocument.data!!["numReviews"].toString().toInt(),
+                                            certificateAccepted = dogWalkerDocument.data!!["certificateAccepted"].toString().toBoolean()
                                         )
 
                                         intent.putExtra("user", user)

@@ -125,9 +125,19 @@ class DogWalkerMainActivity : AppCompatActivity(),
 
     private fun changeCertificateFragment() {
         val fragment = fragments[1]
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.flContent,fragment)
-        ft.commit()
+        userManager.getUserDogWalkerById(user.id!!, { dogWalker: DogWalker ->
+            user = dogWalker
+            val args = Bundle().apply {
+                this.putSerializable("user",user)
+            }
+            fragment.arguments = args
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.flContent,fragment)
+            ft.commit()
+        }, {error ->
+            println(error)
+            Toast.makeText(this, "Error obtaining user", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun changeReviewFragment() {
@@ -149,13 +159,19 @@ class DogWalkerMainActivity : AppCompatActivity(),
 
     private fun changeAdvertisementFragment() {
         val fragment = fragments[3]
-        val args = Bundle().apply {
-            this.putSerializable("user",user)
-        }
-        fragment.arguments = args
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.flContent,fragment)
-        ft.commit()
+        userManager.getUserDogWalkerById(user.id!!, { dogWalker: DogWalker ->
+            user = dogWalker
+            val args = Bundle().apply {
+                this.putSerializable("user",user)
+            }
+            fragment.arguments = args
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.flContent,fragment)
+            ft.commit()
+        }, {error ->
+            println(error)
+            Toast.makeText(this, "Error obtaining user", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun changeWalkFragment() {

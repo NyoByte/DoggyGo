@@ -8,6 +8,7 @@ class DogWalker(
     val userRef: String,
     val numWalks: Int,
     val numReviews: Int,
+    val certificateAccepted: Boolean,
     id: String?,
     firstName: String,
     lastName: String,

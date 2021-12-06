@@ -47,7 +47,8 @@ class UserManager(private val context: Context) {
                             score = docWalker.get("score").toString().toInt(),
                             userRef = docUser.id,
                             numReviews = docWalker.get("numReviews").toString().toInt(),
-                            numWalks = docWalker.get("numWalks").toString().toInt()
+                            numWalks = docWalker.get("numWalks").toString().toInt(),
+                            certificateAccepted = docWalker.get("certificateAccepted").toString().toBoolean()
                         )
                         Log.d("UserManager","Loaded user from Firebase")
                         callbackOK(dogWalker)
@@ -99,6 +100,20 @@ class UserManager(private val context: Context) {
             }
             .addOnFailureListener {
                 callbackERROR(it.message!!)
+            }
+    }
+
+    fun updateCertificate(userId:String, status:Boolean){
+        dbFirebase.collection("DogWalkers").document(userId)
+            .update(mapOf(
+                "certificateAccepted" to status
+            ))
+            .addOnSuccessListener {
+                Toast.makeText(context, "Certificado actualizado correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al actualizar el certificado", Toast.LENGTH_SHORT).show()
+                Log.e("CertificadoFragment", it.message!!)
             }
     }
 

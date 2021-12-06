@@ -54,6 +54,13 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    //Pdf
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    //Storage
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    //Database
+    implementation 'com.google.firebase:firebase-database-ktx'
+
     //noinspection GradleCompatible
     implementation("com.android.support:appcompat-v7:23.2.0")
 
