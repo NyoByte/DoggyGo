@@ -64,13 +64,26 @@ class UsuarioFragment(private val userType: String): Fragment() {
             val passwordEdit = tinPassword.editText?.text
             if(saveValidations(usernameEdit, passwordEdit)){
                 if(passwordEdit!!.isEmpty()){
-                    userManager.updateUserAuth(userId!!, usernameEdit.toString())
+                    userManager.existUsername(userId!!, usernameEdit.toString()) { yaExiste ->
+                        if(yaExiste){
+                            Toast.makeText(context, "Ya existe el username", Toast.LENGTH_SHORT).show()
+                        }else{
+                            userManager.updateUserAuth(userId, usernameEdit.toString())
+                            listener?.onSaveUser_Usuario(usernameEdit.toString())
+                        }
+                    }
                 }else{
-                    userManager.updateUserAuth(userId!!, usernameEdit.toString(), passwordEdit.toString())
-                    tinPassword.editText?.setText("")
+                    userManager.existUsername(userId!!, usernameEdit.toString()){ yaExiste ->
+                        if(yaExiste){
+                            Toast.makeText(context, "Ya existe el username", Toast.LENGTH_SHORT).show()
+                        }else{
+                            userManager.updateUserAuth(userId, usernameEdit.toString(), passwordEdit.toString())
+                            listener?.onSaveUser_Usuario(usernameEdit.toString())
+                            tinPassword.editText?.setText("")
+                        }
+                    }
                 }
             }
-            listener?.onSaveUser_Usuario(usernameEdit.toString())
         }
     }
 

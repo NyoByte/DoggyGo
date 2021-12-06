@@ -117,6 +117,37 @@ class UserManager(private val context: Context) {
             }
     }
 
+    fun existUsername(userId:String, myUsername:String, callbackOK: (Boolean) -> Unit){
+        dbFirebase.collection("Users").document(userId)
+            .get()
+            .addOnSuccessListener { doc ->
+                if(doc.exists()){
+                    val username = doc.data?.get("username").toString()
+                    dbFirebase.collection("Users")
+                        .whereEqualTo("username", myUsername)
+                        .get()
+                        .addOnSuccessListener { res ->
+                            if(res.size() >= 1) {
+                                println(username)
+                                if(myUsername == username){
+                                    callbackOK(false)
+                                }else{
+                                    callbackOK(true)
+                                }
+                            }else{
+                                callbackOK(false)
+                            }
+                        }
+                        .addOnFailureListener {
+                            println(it.message!!)
+                        }
+                }
+            }
+            .addOnFailureListener{
+                println(it.message!!)
+            }
+    }
+
     fun updateUserAuth(userId: String, newUsername: String, newPassword: String){
 
         val md5Password = md5(newPassword)
