@@ -1,14 +1,12 @@
 package pe.edu.ulima.doggygo.adapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.RatingBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -33,6 +31,8 @@ class AnunciosListAdapter(private val fragment: Fragment,
         val tviAnunciosPrecio = view.findViewById<TextView>(R.id.tviAnunciosPrecio)
         val mbuAnunciosPhone = view.findViewById<MaterialButton>(R.id.mbuAnunciosPhone)
         val mbuContratosAceptar = view.findViewById<MaterialButton>(R.id.mbuContratosAceptar)
+        val tviCertificate = view.findViewById<TextView>(R.id.tviCertificate)
+        val iviCertificate = view.findViewById<ImageView>(R.id.iviCertificate)
 
         init{
             view.setOnClickListener(this)
@@ -58,6 +58,16 @@ class AnunciosListAdapter(private val fragment: Fragment,
         holder.mbuAnunciosPhone.text = anunciosList[position].telf
         holder.tviAnunciosResenhas.text = anunciosList[position].numReviews.toString()
         holder.tviAnunciosNumPaseos.text = anunciosList[position].numWalks.toString()
+
+        println(anunciosList[position].certificateAccepted)
+
+        if(anunciosList[position].certificateAccepted) {
+            holder.tviCertificate.setTextColor(Color.CYAN)
+            holder.iviCertificate.setColorFilter(Color.CYAN)
+        }else{
+            holder.tviCertificate.setTextColor(Color.DKGRAY)
+            holder.iviCertificate.setColorFilter(Color.DKGRAY)
+        }
 
         holder.mbuAnunciosPhone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)

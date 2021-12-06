@@ -43,7 +43,7 @@ class AnnouncementsManager(private val context: Context) {
                                 userRef = (document.data["userRef"] as DocumentReference).id,
                                 numReviews = document.data["numReviews"].toString().toInt(),
                                 numWalks = document.data["numWalks"].toString().toInt(),
-                                certificateAccepted = document.data["certificateAcccepted"].toString().toBoolean()
+                                certificateAccepted = document.data["certificateAccepted"].toString().toBoolean()
                             )
                             dogWalkerList.add(dogWalker)
                             if(dogWalkerList.size >= res.size()){

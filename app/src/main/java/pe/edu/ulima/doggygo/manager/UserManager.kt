@@ -128,7 +128,6 @@ class UserManager(private val context: Context) {
                         .get()
                         .addOnSuccessListener { res ->
                             if(res.size() >= 1) {
-                                println(username)
                                 if(myUsername == username){
                                     callbackOK(false)
                                 }else{

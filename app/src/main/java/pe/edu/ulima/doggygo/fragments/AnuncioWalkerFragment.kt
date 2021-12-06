@@ -1,14 +1,13 @@
 package pe.edu.ulima.doggygo.fragments
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RatingBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.ktx.firestore
@@ -51,6 +50,13 @@ class AnuncioWalkerFragment: Fragment() {
                 view.findViewById<Chip>(R.id.chpAnuncioActivo).isChecked = false
                 view.findViewById<Chip>(R.id.chpAnuncioInactivo).isChecked = true
             }
+        }
+        if(user.certificateAccepted){
+            view.findViewById<TextView>(R.id.tviCertificate).setTextColor(Color.CYAN)
+            view.findViewById<ImageView>(R.id.iviCertificate).setColorFilter(Color.CYAN)
+        }else{
+            view.findViewById<TextView>(R.id.tviCertificate).setTextColor(Color.DKGRAY)
+            view.findViewById<ImageView>(R.id.iviCertificate).setColorFilter(Color.DKGRAY)
         }
 
         view.findViewById<Button>(R.id.btnAnuncioGuardar).setOnClickListener {
