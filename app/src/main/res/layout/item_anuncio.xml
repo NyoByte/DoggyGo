@@ -53,16 +53,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tviAnunciosAntiguedad"
                     app:layout_constraintStart_toEndOf="@+id/tviAnunciosAntiguedad"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tviAnunciosAntiguedad"
                     app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="8dp"
                     android:text="Antiguedad"
@@ -71,6 +70,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView6"
                     app:layout_constraintStart_toStartOf="@+id/tviAnunciosAntiguedad"
                     app:layout_constraintTop_toBottomOf="@+id/tviAnunciosAntiguedad" />
 
@@ -104,10 +104,10 @@
                     android:id="@+id/imageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tviAnunciosResenhas"
                     app:layout_constraintEnd_toStartOf="@+id/tviAnunciosNumPaseos"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tviAnunciosResenhas"
                     app:srcCompat="@drawable/ic_iconmonstr_favorite_3" />
 
                 <TextView
@@ -120,6 +120,7 @@
                     android:textColor="@color/purple_500"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
                     app:layout_constraintStart_toStartOf="@+id/tviAnunciosResenhas"
                     app:layout_constraintTop_toBottomOf="@+id/tviAnunciosResenhas" />
 
@@ -133,6 +134,7 @@
                     android:textColor="@color/purple_500"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView8"
                     app:layout_constraintStart_toStartOf="@+id/tviAnunciosNumPaseos"
                     app:layout_constraintTop_toBottomOf="@+id/tviAnunciosNumPaseos" />
 
@@ -140,10 +142,10 @@
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="32dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tviAnunciosNumPaseos"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tviAnunciosNumPaseos"
                     app:srcCompat="@drawable/ic_baseline_directions_walk_24"
                     app:tint="@color/purple_500" />
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,6 +53,10 @@ class WalkListAdapter(private val fragment: Fragment,
         holder.tviPaseoDate.text = walkList[position].date
         holder.tviPaseoTime.text = walkList[position].time.toString() + " hrs"
         Glide.with(fragment).load(walkList[position].photoUrl).into(holder.iviPaseoMascota)
+
+        holder.fabPaseoNote.setOnClickListener {
+            listener(walkList[position])
+        }
     }
 
     override fun getItemCount(): Int {

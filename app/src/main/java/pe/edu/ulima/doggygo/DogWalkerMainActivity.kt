@@ -15,7 +15,8 @@ import pe.edu.ulima.doggygo.model.DogWalker
 
 class DogWalkerMainActivity : AppCompatActivity(),
     PerfilFragment.Actions,
-    UsuarioFragment.Actions{
+    UsuarioFragment.Actions,
+    PaseoWalkerFragment.Actions{
 
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
@@ -49,6 +50,8 @@ class DogWalkerMainActivity : AppCompatActivity(),
         fragments.add(ContratosFragment())
         fragments.add(UsuarioFragment("dogWalker"))
         fragments.add(ConfiguracionFragment())
+        //Fuera del menú
+        fragments.add(PaseoDetalleWalkerFragment()) //8
 
         nviMain.setNavigationItemSelectedListener {
             changeFragment(it)
@@ -226,6 +229,17 @@ class DogWalkerMainActivity : AppCompatActivity(),
 
     override fun onSaveUser_Usuario(username:String){
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(username)
+    }
+
+    override fun onDetailsClicked() {
+        val fragment = fragments[8]
+        val args = Bundle().apply {
+            this.putSerializable("user",user)
+        }
+        fragment.arguments = args
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.flContent,fragment)
+        ft.commit()
     }
 
 }
