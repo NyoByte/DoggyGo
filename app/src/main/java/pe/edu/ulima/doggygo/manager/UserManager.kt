@@ -63,6 +63,30 @@ class UserManager(private val context: Context) {
             }
     }
 
+    fun getTelfWalkerByWalkId(walkId: String, callbackOK: (String) -> Unit, callbackERROR: (String) -> Unit){
+        println("==1==")
+        dbFirebase.collection("Contracts")
+            .whereEqualTo("walkRef", dbFirebase.collection("Walks").document(walkId))
+            .get()
+            .addOnSuccessListener { res ->
+                println("==2==")
+                //println(res.documents.get(0).id)
+                for (document in res) {
+                    (document.data["dogWalkerRef"] as DocumentReference)
+                        .get()
+                        .addOnSuccessListener { docUser ->
+                            callbackOK(docUser.get("telf").toString())
+                        }
+                        .addOnFailureListener {
+                            callbackERROR(it.message!!)
+                        }
+                }
+            }
+            .addOnFailureListener {
+                callbackERROR(it.message!!)
+            }
+    }
+
     fun getUserDogOwnerById(userId: String, callbackOK: (DogOwner) -> Unit, callbackERROR: (String) -> Unit){
         dbFirebase.collection("DogOwners").document(userId)
             .get()

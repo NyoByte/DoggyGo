@@ -43,25 +43,27 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/btnIniciar"
+        android:id="@+id/btnCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="INICIAR"
+        android:text="CANCELAR"
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
-        android:id="@+id/btnFinalizar"
+
+        android:id="@+id/btnPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:enabled="false"
-        android:text="FINALIZAR"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#43A047"
+        android:text="999 999 999"
         app:cornerRadius="20dp"
+        app:icon="@drawable/ic_baseline_local_phone_24"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
@@ -213,12 +215,15 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btnTest"
-        android:layout_width="65dp"
+        android:id="@+id/btnCalificar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pee"
-        app:layout_constraintEnd_toStartOf="@+id/btnFinalizar"
-        app:layout_constraintStart_toEndOf="@+id/btnIniciar"
-        app:layout_constraintTop_toBottomOf="@+id/btnFinalizar" />
+        android:layout_marginTop="4dp"
+        android:enabled="false"
+        android:text="CALIFICAR"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/btnPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

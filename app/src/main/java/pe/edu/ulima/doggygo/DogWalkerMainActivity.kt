@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.doggygo.fragments.*
 import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.model.DogWalker
+import pe.edu.ulima.doggygo.model.Walk
 
 class DogWalkerMainActivity : AppCompatActivity(),
     PerfilFragment.Actions,
@@ -231,10 +232,11 @@ class DogWalkerMainActivity : AppCompatActivity(),
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(username)
     }
 
-    override fun onDetailsClicked() {
+    override fun onDetailsWalkerClicked(walk: Walk) {
         val fragment = fragments[8]
         val args = Bundle().apply {
             this.putSerializable("user",user)
+            this.putSerializable("walk", walk)
         }
         fragment.arguments = args
         val ft = supportFragmentManager.beginTransaction()

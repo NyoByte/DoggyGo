@@ -1,6 +1,11 @@
 package pe.edu.ulima.doggygo.manager
 
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.model.Contract
@@ -30,8 +35,12 @@ class WalkManager(private val context: Context) {
                             dogActivityLevel = contract.dogActivityLevel,
                             photoUrl = contract.photoUrl,
                             time = contract.time,
+                            duration = contract.duration.toString().toInt(),
                             pee = walk.data?.get("pee").toString().toBoolean(),
-                            poo = walk.data?.get("poo").toString().toBoolean()
+                            poo = walk.data?.get("poo").toString().toBoolean(),
+                            walkStarted = walk.data?.get("walkStarted") as? Timestamp,
+                            walkEnded = walk.data?.get("walkEnded") as? Timestamp,
+                            listLatLng = walk.data?.get("listLatLng") as? MutableList<GeoPoint>,
                         )
                         walkList.add(newWalk)
                         if(walkList.size == contractWalkList.size){
@@ -67,8 +76,12 @@ class WalkManager(private val context: Context) {
                             dogActivityLevel = contract.dogActivityLevel,
                             photoUrl = contract.photoUrl,
                             time = contract.time,
+                            duration = contract.duration.toString().toInt(),
                             pee = walk.data?.get("pee").toString().toBoolean(),
-                            poo = walk.data?.get("poo").toString().toBoolean()
+                            poo = walk.data?.get("poo").toString().toBoolean(),
+                            walkStarted = walk.data?.get("walkStarted") as? Timestamp,
+                            walkEnded = walk.data?.get("walkEnded") as? Timestamp,
+                            listLatLng = walk.data?.get("listLatLng") as? MutableList<GeoPoint>
                         )
                         walkList.add(newWalk)
                         if(walkList.size == contractWalkList.size){
@@ -82,5 +95,23 @@ class WalkManager(private val context: Context) {
         },{
             callbackError(it)
         })
+    }
+
+    fun updateWalk(walkId: String, walk: Walk){
+        dbFirebase.collection("Walks").document(walkId)
+            .update(mapOf(
+                "pee" to walk.pee,
+                "poo" to walk.poo,
+                "walkStarted" to walk.walkStarted,
+                "walkEnded" to walk.walkEnded,
+                "listLatLng" to walk.listLatLng
+            ))
+            .addOnSuccessListener {
+                Toast.makeText(context, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                Log.e("PaseoDetalleWaFragment", it.message!!)
+            }
     }
 }

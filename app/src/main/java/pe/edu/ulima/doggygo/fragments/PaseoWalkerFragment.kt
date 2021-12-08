@@ -22,7 +22,7 @@ import pe.edu.ulima.doggygo.model.Walk
 class PaseoWalkerFragment: Fragment() {
 
     interface Actions{
-        fun onDetailsClicked()
+        fun onDetailsWalkerClicked(walk: Walk)
     }
 
     private var listener: Actions? = null
@@ -51,13 +51,10 @@ class PaseoWalkerFragment: Fragment() {
         val walkManager = WalkManager(requireActivity().applicationContext)
 
         walkManager.getWalks(user.userRef!!,{wList: List<Walk> ->
-            wList.forEach {
-                Log.d("WalksManager", it.pee.toString())
-            }
             walkList.addAll(wList)
             rviWalks.adapter = WalkListAdapter(this, walkList){ walk: Walk ->
                 Log.d("WalksManager", walk.id)
-                listener?.onDetailsClicked()
+                listener?.onDetailsWalkerClicked(walk)
             }
         }, {error ->
             println(error)

@@ -1,5 +1,6 @@
 package pe.edu.ulima.doggygo.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,18 @@ import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.Walk
 
 class PaseoOwnerFragment: Fragment()  {
+
+    interface Actions{
+        fun onDetailsOwnerClicked(walk: Walk)
+    }
+
+    private var listener: Actions? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? Actions
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +51,7 @@ class PaseoOwnerFragment: Fragment()  {
             walkList.addAll(wList)
             rviWalks.adapter = WalkListAdapter(this, walkList){ walk: Walk ->
                 Log.d("WalksManager", walk.id)
+                listener?.onDetailsOwnerClicked(walk)
             }
         }, {error ->
             println(error)

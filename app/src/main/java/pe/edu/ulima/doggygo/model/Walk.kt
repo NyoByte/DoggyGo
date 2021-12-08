@@ -1,8 +1,15 @@
 package pe.edu.ulima.doggygo.model
 
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
+import java.io.Serializable
+
 class Walk(
-    val pee: Boolean,
-    val poo: Boolean,
+    var pee: Boolean,
+    var poo: Boolean,
+    var walkStarted: Timestamp?,
+    var walkEnded: Timestamp?,
+    var listLatLng: MutableList<GeoPoint>?,
     id: String,
     dogOwnerFullName: String,
     dogOwnerDistrict: String,
@@ -14,9 +21,10 @@ class Walk(
     dogAge: Int,
     dogWeight: Int,
     photoUrl: String,
-    note: String
+    note: String,
+    duration: Int
 ) : Contract(
     id, dogOwnerFullName, dogOwnerDistrict, date, time, dogName,
-    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null, null
-) {
+    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null, null, duration
+), Serializable {
 }

@@ -15,12 +15,14 @@ import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.model.DogOwner
 import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.Pet
+import pe.edu.ulima.doggygo.model.Walk
 
 class DogOwnerMainActivity : AppCompatActivity(),
     MascotasFragment.Actions,
     EditMascotaFragment.Actions,
     PerfilFragment.Actions,
-    UsuarioFragment.Actions {
+    UsuarioFragment.Actions,
+    PaseoOwnerFragment.Actions {
 
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
@@ -55,6 +57,7 @@ class DogOwnerMainActivity : AppCompatActivity(),
         fragments.add(ConfiguracionFragment())
         //Fuera del menú
         fragments.add(EditMascotaFragment()) // 7
+        fragments.add(PaseoDetalleOwnerFragment()) //8
 
         nviMain.setNavigationItemSelectedListener {
             changeFragment(it)
@@ -237,5 +240,24 @@ class DogOwnerMainActivity : AppCompatActivity(),
 
     override fun onSaveUser_Usuario(username:String){
         nviMain.getHeaderView(0).findViewById<TextView>(R.id.main_header_tviUsername).setText(username)
+    }
+
+    override fun onDetailsOwnerClicked(walk: Walk) {
+        val fragment = fragments[8]
+        userManager.getTelfWalkerByWalkId(walk.id, { telf ->
+            println(telf)
+            val args = Bundle().apply {
+                this.putSerializable("user", user)
+                this.putSerializable("walk", walk)
+                this.putSerializable("telf", telf)
+            }
+            fragment.arguments = args
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.flDogOwnerContent,fragment)
+            ft.commit()
+        }, {error ->
+            println(error)
+            Toast.makeText(this, "Error obtaining telf walker", Toast.LENGTH_SHORT).show()
+        })
     }
 }

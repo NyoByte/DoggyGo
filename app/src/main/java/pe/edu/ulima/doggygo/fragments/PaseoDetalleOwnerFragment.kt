@@ -2,9 +2,9 @@ package pe.edu.ulima.doggygo.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Paint
-import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -19,29 +19,29 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import pe.edu.ulima.doggygo.R
-import pe.edu.ulima.doggygo.model.User
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.*
-
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
-import com.google.type.DateTime
-import pe.edu.ulima.doggygo.manager.UserManager
+import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.manager.WalkManager
+import pe.edu.ulima.doggygo.model.User
 import pe.edu.ulima.doggygo.model.Walk
 import java.util.*
-import kotlin.time.Duration.Companion.seconds
 
-
-class PaseoDetalleWalkerFragment: Fragment(),
+class PaseoDetalleOwnerFragment: Fragment(),
     OnMapReadyCallback {
 
     private var user: User? = null
     private var walk: Walk? = null
-    private lateinit var walkManager:WalkManager
+    private var telf: String? = null
+    private lateinit var walkManager: WalkManager
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -58,9 +58,10 @@ class PaseoDetalleWalkerFragment: Fragment(),
     private var flag:Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v:View = inflater.inflate(R.layout.fragment_paseo_detalle_walker, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_paseo_detalle_owner, container, false)
         user = arguments?.getSerializable("user") as User
         walk = arguments?.getSerializable("walk") as Walk
+        telf = arguments?.getSerializable("telf") as String
         mapView = v.findViewById(R.id.mapView) as MapView
         initGoogleMap(savedInstanceState)
         return v
@@ -80,9 +81,9 @@ class PaseoDetalleWalkerFragment: Fragment(),
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastLocation()
         walkManager =  WalkManager(requireActivity().applicationContext)
-
-        val btnIniciar = view.findViewById<Button>(R.id.btnIniciar)
-        val btnFinalizar= view.findViewById<Button>(R.id.btnFinalizar)
+        val btnCancelar = view.findViewById<Button>(R.id.btnCancelar)
+        val btnCalificar= view.findViewById<Button>(R.id.btnCalificar)
+        val btnPhone = view.findViewById<Button>(R.id.btnPhone)
         val cboPee = view.findViewById<CheckBox>(R.id.cboPee)
         val cboPoo = view.findViewById<CheckBox>(R.id.cboPoo)
         val tviTime = view.findViewById<TextView>(R.id.tviTime)
@@ -102,76 +103,49 @@ class PaseoDetalleWalkerFragment: Fragment(),
         if(walk!!.walkStarted == null && walk!!.walkEnded == null){
             flag = true
             activeWalk = false
-            btnIniciar.isEnabled = true
-            btnFinalizar.isEnabled = false
             tviTime.text = "0min"
+            btnCancelar.isEnabled = true
+            btnCalificar.isEnabled = false
         }else if (walk!!.walkStarted != null && walk!!.walkEnded == null){
             flag = false
             activeWalk = true
-            btnIniciar.isEnabled = false
-            btnFinalizar.isEnabled = true
-            var currentTime = (Timestamp.now().toDate().time - walk!!.walkStarted?.toDate()!!.time)
-            //currentTime = currentTime.div(6000)
-            tviTime.text = currentTime.toString() + "min"
+            val currentTime = (Timestamp.now().toDate().time - walk!!.walkStarted?.toDate()!!.time)
+            val timeMin = currentTime/60000
+            val timeSeg = (currentTime%60000)/1000
+            if(timeMin==0L){
+                tviTime.text = timeSeg.toString() + "seg"
+            }else{
+                tviTime.text = timeMin.toString() + "min" + timeSeg.toString() + "seg"
+            }
+            btnCancelar.isEnabled = false
+            btnCalificar.isEnabled = false
         }else if (walk!!.walkStarted != null && walk!!.walkEnded != null){
-            flag = false
-            activeWalk = false
-            btnIniciar.isEnabled = false
-            btnFinalizar.isEnabled = false
-            cboPee.isEnabled = false
-            cboPoo.isEnabled = false
-            println("TEST NYO START====================================\n")
-            println("\nCheckbox Peee: "+cboPee.isChecked)
-            cboPee!!.isChecked = walk!!.pee
-            cboPoo.setChecked(walk!!.poo)
-            println("\nPee Firebase: "+walk!!.pee)
-            tviDistance.text = walk!!.pee.toString()
-            println("\nCheckbox Peee: "+cboPee.isChecked)
-            println("TEST NYO STOP====================================")
             val currentTime = (walk!!.walkEnded?.toDate()!!.time - walk!!.walkStarted?.toDate()!!.time)
-            val TimeMin = currentTime/60000
-            val TimeSeg = (currentTime%60000)/1000
-            if(TimeMin==0L){
-                tviTime.text = TimeSeg.toString() + "seg"
+            val timeMin = currentTime/60000
+            val timeSeg = (currentTime%60000)/1000
+            if(timeMin==0L){
+                tviTime.text = timeSeg.toString() + "seg"
             }else{
-                tviTime.text = TimeMin.toString() + "min" + TimeSeg.toString() + "seg"
+                tviTime.text = timeMin.toString() + "min" + timeSeg.toString() + "seg"
             }
-
+            btnCancelar.isEnabled = false
+            btnCalificar.isEnabled = true
         }
 
-        btnIniciar.setOnClickListener {
-            activeWalk = true
-            listLatLngCurrent = MutableList<GeoPoint>(1){
-                GeoPoint(lat,lng)
-            }
-            btnIniciar.isEnabled = false
-            btnFinalizar.isEnabled = true
-            val newWalk = walk!!.apply {
-                this.walkStarted = Timestamp.now()
-            }
-            walkManager.updateWalk(newWalk.id, newWalk)
+        btnCancelar.setOnClickListener{
+            Log.e("ButtonCancelar", "click")
         }
 
-        btnFinalizar.setOnClickListener {
-            activeWalk = false
-            val newWalk = walk!!.apply {
-                this.walkEnded = Timestamp.now()
-                this.listLatLng = listLatLngCurrent
-                this.pee = cboPee.isChecked
-                this.poo = cboPoo.isChecked
-            }
-            walkManager.updateWalk(newWalk.id, newWalk)
-            btnFinalizar.isEnabled = false
-            polylineWalk()
+        btnCalificar.setOnClickListener{
+            Log.e("ButtonCalificar", "click")
         }
 
-        view.findViewById<Button>(R.id.btnTest).setOnClickListener {
-            println("============|${cboPee.isChecked}|============")
-            if(cboPee.isChecked){
-                cboPee.isChecked = false
-            }else{
-                cboPee.isChecked = true
-            }
+        btnPhone.text = "${telf}"
+        btnPhone.setOnClickListener{
+            Log.e("ButtonPhone", "click")
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:<${telf}>")
+            requireActivity().startActivity(intent)
         }
     }
 
@@ -181,7 +155,6 @@ class PaseoDetalleWalkerFragment: Fragment(),
         listLatLngCurrent.forEach {
             polylineOpt.add(LatLng(it.latitude, it.longitude))
         }
-
         map.clear()
         map.addPolyline(polylineOpt.geodesic(true))
     }
@@ -208,13 +181,6 @@ class PaseoDetalleWalkerFragment: Fragment(),
             val startMark = MarkerOptions()
                 .position(LatLng(walk!!.listLatLng!![0].latitude, walk!!.listLatLng!![0].longitude))
                 .title("Inicio")
-            map.addMarker(startMark)
-        }
-        if(walk!!.walkStarted != null && walk!!.walkEnded != null){
-            polylineWalk()
-            val startMark = MarkerOptions()
-                .position(LatLng(walk!!.listLatLng!![0].latitude, walk!!.listLatLng!![0].longitude))
-                .title("Inicio")
             val eFin = walk!!.listLatLng!!.size - 1
             val endMark = MarkerOptions()
                 .position(LatLng(walk!!.listLatLng!![eFin].latitude, walk!!.listLatLng!![eFin].longitude))
@@ -223,10 +189,8 @@ class PaseoDetalleWalkerFragment: Fragment(),
             map.addMarker(endMark)
         }
     }
-
     override fun onResume() {
         super.onResume()
-        startLocationUpdates()
         mapView.onResume()
     }
 
@@ -283,15 +247,10 @@ class PaseoDetalleWalkerFragment: Fragment(),
             override fun onLocationResult(locationResult: LocationResult?){
                 if(locationResult != null){
                     for(location in locationResult.locations) {
-                        Log.d("getLocationGoogle", "${location.latitude} , ${location.longitude} - ${Date().seconds}")
                         if(activeWalk) {
-                            Log.i("NyoTest",walk!!.id)
-                            val newLatLng = GeoPoint(location.latitude, location.longitude)
-                            listLatLngCurrent.add(newLatLng)
+                            println("")
                         }else{
-                            if(!flag){
-                                listLatLngCurrent = walk!!.listLatLng!!
-                            }
+                            println("")
                         }
                     }
                 }

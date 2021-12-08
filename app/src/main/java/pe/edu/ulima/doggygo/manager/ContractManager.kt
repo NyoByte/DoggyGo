@@ -2,7 +2,9 @@ package pe.edu.ulima.doggygo.manager
 
 import android.content.Context
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -42,7 +44,8 @@ class ContractManager(private val context: Context) {
                                         photoUrl = docDog.data?.get("photo").toString()!!,
                                         note = document.data["notes"].toString(),
                                         walkRef = document.data["walkRef"] as DocumentReference?,
-                                        price = null
+                                        price = null,
+                                        duration = document.data["duration"].toString().toInt()
                                     )
                                     contracts.add(contract)
                                     if(contracts.size >= res.size()){
@@ -102,7 +105,8 @@ class ContractManager(private val context: Context) {
                                                 photoUrl = docDog.data?.get("photo").toString()!!,
                                                 note = document.data["notes"].toString(),
                                                 walkRef = document.data["walkRef"] as DocumentReference?,
-                                                price = walkerDoc.data?.get("price").toString().toInt()
+                                                price = walkerDoc.data?.get("price").toString().toInt(),
+                                                duration = document.data["duration"].toString().toInt()
                                             )
                                             contracts.add(contract)
                                             if(contracts.size >= res.size()){
@@ -132,9 +136,13 @@ class ContractManager(private val context: Context) {
 
     fun updateContractState(contractId: String, state: String, callbackOK: () -> Unit, callbackError: (String) -> Unit){
         if(state == "aceptado"){
-            val newPaseo = hashMapOf<String, Any>(
+            val listNull:MutableList<GeoPoint>? = null
+            val newPaseo = hashMapOf<String, Any?>(
                 "poo" to false,
-                "pee" to false
+                "pee" to false,
+                "walkStarted" to null,
+                "walkEnded" to null,
+                "listLatLng" to listNull
             )
             dbFirebase.collection("Walks")
                 .add(newPaseo)

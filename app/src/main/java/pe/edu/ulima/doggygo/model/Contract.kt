@@ -16,5 +16,6 @@ open class Contract (
     val photoUrl: String,
     val note: String,
     val walkRef: DocumentReference?,
-    val price: Int?
+    val price: Int?,
+    val duration: Int,
 ){}
