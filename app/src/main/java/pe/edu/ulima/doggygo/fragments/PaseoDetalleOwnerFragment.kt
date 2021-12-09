@@ -130,6 +130,9 @@ class PaseoDetalleOwnerFragment: Fragment(),
             }
             btnCancelar.isEnabled = false
             btnCalificar.isEnabled = true
+
+            cboPee.isChecked = walk?.pee!!
+            cboPoo.isChecked = walk?.poo!!
         }
 
         btnCancelar.setOnClickListener{
@@ -228,16 +231,22 @@ class PaseoDetalleOwnerFragment: Fragment(),
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         // Ya tenemos permisos, podemos obtener localizacion
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            lat = it.latitude
-            lng = it.longitude
-            map.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(LatLng(lat,lng),18f)
-            )
-        }
-        fusedLocationClient.lastLocation.addOnFailureListener {
-            Log.e("APIGoogle", it.message!!)
-        }
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                lat = it.latitude
+                lng = it.longitude
+                if(walk?.walkEnded != null && walk?.listLatLng != null){
+                    map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(LatLng(walk!!.listLatLng!![0].latitude, walk!!.listLatLng!![0].longitude),18f)
+                    )
+                }else {
+                    map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), 18f)
+                    )
+                }
+            }
+            fusedLocationClient.lastLocation.addOnFailureListener {
+                Log.e("APIGoogle", it.message!!)
+            }
 
     }
     @SuppressLint("MissingPermission")
