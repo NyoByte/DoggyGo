@@ -22,7 +22,7 @@ class AnnouncementsManager(private val context: Context) {
                             val dogWalker = DogWalker(
                                 id = document.id,
                                 age = docUser.data?.get("age").toString(),
-                                score = document.data["score"].toString().toInt(),
+                                score = document.data["score"].toString().toFloat(),
                                 desc = document.data["desc"].toString(),
                                 active = document.data["desc"].toString().toBoolean(),
                                 username = docUser.data?.get("username").toString(),

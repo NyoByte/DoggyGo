@@ -29,6 +29,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import pe.edu.ulima.doggygo.R
 import pe.edu.ulima.doggygo.manager.ReviewManager
+import pe.edu.ulima.doggygo.manager.UserManager
 import pe.edu.ulima.doggygo.manager.WalkManager
 import pe.edu.ulima.doggygo.model.User
 import pe.edu.ulima.doggygo.model.Walk
@@ -147,6 +148,7 @@ class PaseoDetalleOwnerFragment: Fragment(),
             val eteCommentCalificarAnuncio = customDialog.findViewById<EditText>(R.id.eteCommentCalificarAnuncio)
 
             val reviewManager = ReviewManager(requireContext())
+            val userManager = UserManager(requireContext())
 
             materialAlertDialogBuilder.setView(customDialog)
                 .setTitle("Calificar")
@@ -154,6 +156,11 @@ class PaseoDetalleOwnerFragment: Fragment(),
                 .setPositiveButton("Calificar"){ dialog, _ ->
                     reviewManager.createReview(user?.id!!, walk?.dogWalkerId!!, rbaCalificarAnuncio.rating, eteCommentCalificarAnuncio.text.toString(), {
                         Toast.makeText(requireActivity(), "Calificación publicada correctamente", Toast.LENGTH_SHORT).show()
+                        userManager.updateDogWalkerScore(walk?.dogWalkerId!!, {
+                            Log.d("PaseoDetllOwnerFragment", "Score de dog walker actualizado correctamente a $it")
+                        }, {
+                            Log.e("PaseoDetllOwnerFragment","Error al actualizar el score del dog walker: $it")
+                        })
                     }, {
                         Toast.makeText(requireActivity(), "Ocurrió un error al publicar la calificación", Toast.LENGTH_SHORT).show()
                     })

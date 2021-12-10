@@ -4,7 +4,7 @@ class DogWalker(
     val desc: String,
     val active: Boolean,
     val price: Int,
-    val score: Int,
+    val score: Float,
     val userRef: String,
     val numWalks: Int,
     val numReviews: Int,

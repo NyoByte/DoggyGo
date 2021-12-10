@@ -44,7 +44,7 @@ class UserManager(private val context: Context) {
                             active = docUser.data?.get("active").toString().toBoolean(),
                             desc = docWalker.get("desc").toString(),
                             price = docWalker.get("price").toString().toInt(),
-                            score = docWalker.get("score").toString().toInt(),
+                            score = docWalker.get("score").toString().toFloat(),
                             userRef = docUser.id,
                             numReviews = docWalker.get("numReviews").toString().toInt(),
                             numWalks = docWalker.get("numWalks").toString().toInt(),
@@ -225,6 +225,35 @@ class UserManager(private val context: Context) {
             .addOnFailureListener {
                 Toast.makeText(context, "Error al actualizar sus datos", Toast.LENGTH_SHORT).show()
                 Log.e("PerfilFragment", it.message!!)
+            }
+    }
+
+    fun updateDogWalkerScore(dogWalkerId: String, callbackOK: (Float) -> Unit, callbackError: (String) -> Unit){
+        dbFirebase.collection("Reviews")
+            .whereEqualTo("dogWalkerRef", dbFirebase.collection("DogWalkers").document(dogWalkerId))
+            .get()
+            .addOnSuccessListener { result ->
+                var sum = 0f
+                var count = 0
+                for(document in result){
+                    sum += document.data["score"].toString().toFloat()
+                    count++
+                    if(count == result.size()){
+                        val newProm = sum/count
+                        dbFirebase.collection("DogWalkers")
+                            .document(dogWalkerId)
+                            .update("score", newProm)
+                            .addOnSuccessListener {
+                                callbackOK(newProm)
+                            }
+                            .addOnFailureListener {
+                                callbackError(it.message!!)
+                            }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                callbackError(it.message!!)
             }
     }
 

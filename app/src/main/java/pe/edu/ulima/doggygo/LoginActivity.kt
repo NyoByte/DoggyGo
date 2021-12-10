@@ -84,7 +84,7 @@ class LoginActivity: AppCompatActivity() {
                                             active = dogWalkerDocument.data!!["active"].toString().toBoolean(),
                                             desc = dogWalkerDocument.data!!["desc"].toString(),
                                             price = dogWalkerDocument.data!!["price"].toString().toInt(),
-                                            score = dogWalkerDocument.data!!["score"].toString().toInt(),
+                                            score = dogWalkerDocument.data!!["score"].toString().toFloat(),
                                             userRef = (dogWalkerDocument.data!!["userRef"] as DocumentReference).id,
                                             numWalks = dogWalkerDocument.data!!["numWalks"].toString().toInt(),
                                             numReviews = dogWalkerDocument.data!!["numReviews"].toString().toInt(),
