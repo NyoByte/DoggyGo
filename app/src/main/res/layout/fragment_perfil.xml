@@ -18,15 +18,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iviProfile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/tinGenders"
         app:layout_constraintEnd_toEndOf="@+id/tinTelf"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tinFirstName"
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -100,7 +102,7 @@
         android:layout_marginTop="4dp"
         android:hint="Teléfono"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/iviProfile">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="180dp"
@@ -264,6 +266,16 @@
         app:layout_constraintEnd_toEndOf="@+id/tinAddress"
         app:layout_constraintStart_toStartOf="@+id/tinAddress"
         app:layout_constraintTop_toBottomOf="@+id/tinAddress" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/iviProfile"
+        app:layout_constraintEnd_toEndOf="@+id/iviProfile"
+        app:layout_constraintStart_toStartOf="@+id/iviProfile"
+        app:layout_constraintTop_toTopOf="@+id/iviProfile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

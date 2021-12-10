@@ -135,10 +135,33 @@ class LoginActivity: AppCompatActivity() {
                                         Toast.makeText(this, "Error obteniendo el usuario", Toast.LENGTH_SHORT).show()
                                         Log.e("LoginActivity", it.message!!)
                                     }
+                            }else if(document.data!!["type"].toString() == "Admin"){
+                                println("Into->Admin")
+                                user = User(
+                                    id = document.id,
+                                    firstName = document.data!!["firstName"].toString(),
+                                    lastName = document.data!!["lastName"].toString(),
+                                    type = document.data!!["type"].toString(),
+                                    address = document.data!!["address"].toString(),
+                                    age = document.data!!["age"].toString(),
+                                    nroDoc = document.data!!["nroDoc"].toString(),
+                                    docType = document.data!!["docType"].toString(),
+                                    email = document.data!!["email"].toString(),
+                                    telf = document.data!!["telf"].toString(),
+                                    gender = document.data!!["gender"].toString(),
+                                    createdDate = document.data!!["createdDate"].toString(),
+                                    province = document.data!!["province"].toString(),
+                                    district = document.data!!["district"].toString(),
+                                    username = document.data!!["username"].toString(),
+                                    password = null,
+                                )
+                                intent.putExtra("user", user)
+                                intent.setClass(this, DogAdminMainActivity::class.java)
+                                startActivity(intent)
+                            }
                             }
                         }
                     }
-                }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error obteniendo el usuario", Toast.LENGTH_SHORT).show()
                     Log.e("LoginActivity", it.message!!)

@@ -228,6 +228,35 @@ class UserManager(private val context: Context) {
             }
     }
 
+    fun updatePhoto(userId: String, photo: String){
+        dbFirebase.collection("Users").document(userId)
+            .update(mapOf(
+                "photoUrl" to photo,
+            ))
+            .addOnSuccessListener {
+                Toast.makeText(context, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al actualizar sus datos", Toast.LENGTH_SHORT).show()
+                Log.e("PerfilFragment", it.message!!)
+            }
+    }
+
+    fun getPhotoUrl(userId: String, callbackOK: (String) -> Unit){
+        dbFirebase.collection("Users").document(userId)
+            .get()
+            .addOnSuccessListener { doc ->
+                println(userId)
+                if(doc.exists()) {
+                    callbackOK(doc.data?.get("photoUrl").toString())
+                }
+            }
+            .addOnFailureListener {
+                Log.e("PerfilFragment", it.message!!)
+            }
+    }
+
+
     fun updateDogWalkerScore(dogWalkerId: String, callbackOK: (Float) -> Unit, callbackError: (String) -> Unit){
         dbFirebase.collection("Reviews")
             .whereEqualTo("dogWalkerRef", dbFirebase.collection("DogWalkers").document(dogWalkerId))
