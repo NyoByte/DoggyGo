@@ -11,10 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,9 +24,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import pe.edu.ulima.doggygo.R
+import pe.edu.ulima.doggygo.manager.ReviewManager
 import pe.edu.ulima.doggygo.manager.WalkManager
 import pe.edu.ulima.doggygo.model.User
 import pe.edu.ulima.doggygo.model.Walk
@@ -140,7 +139,31 @@ class PaseoDetalleOwnerFragment: Fragment(),
         }
 
         btnCalificar.setOnClickListener{
-            Log.e("ButtonCalificar", "click")
+            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(requireContext())
+
+            val customDialog = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_rate_walk, null, false)
+            val rbaCalificarAnuncio = customDialog.findViewById<RatingBar>(R.id.rbaCalificarAnuncio)
+            val eteCommentCalificarAnuncio = customDialog.findViewById<EditText>(R.id.eteCommentCalificarAnuncio)
+
+            val reviewManager = ReviewManager(requireContext())
+
+            materialAlertDialogBuilder.setView(customDialog)
+                .setTitle("Calificar")
+                .setMessage("Ingrese la calificación y un comentario")
+                .setPositiveButton("Calificar"){ dialog, _ ->
+                    reviewManager.createReview(user?.id!!, walk?.dogWalkerId!!, rbaCalificarAnuncio.rating, eteCommentCalificarAnuncio.text.toString(), {
+                        Toast.makeText(requireActivity(), "Calificación publicada correctamente", Toast.LENGTH_SHORT).show()
+                    }, {
+                        Toast.makeText(requireActivity(), "Ocurrió un error al publicar la calificación", Toast.LENGTH_SHORT).show()
+                    })
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancelar"){dialog, _ ->
+                    Toast.makeText(requireActivity(), "Operación cancelada", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         btnPhone.text = "${telf}"
@@ -148,7 +171,7 @@ class PaseoDetalleOwnerFragment: Fragment(),
             Log.e("ButtonPhone", "click")
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:<${telf}>")
-            requireActivity().startActivity(intent)
+            startActivity(intent)
         }
     }
 

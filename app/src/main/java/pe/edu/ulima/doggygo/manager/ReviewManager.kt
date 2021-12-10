@@ -6,6 +6,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pe.edu.ulima.doggygo.model.Review
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReviewManager(private val context: Context) {
     private val dbFirebase = Firebase.firestore
@@ -51,6 +53,27 @@ class ReviewManager(private val context: Context) {
             }
             .addOnFailureListener {
                 callbackERROR(it.message!!)
+            }
+    }
+
+    fun createReview(dogOwnerId: String, dogWalkerId: String, score: Float, comment: String, callbackOK: () -> Unit, callbackError: (String) -> Unit){
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = sdf.format(Date())
+
+        val newReview = hashMapOf<String, Any>(
+            "comment" to comment,
+            "date" to currentDate,
+            "dogOwnerRef" to dbFirebase.collection("DogOwners").document(dogOwnerId),
+            "dogWalkerRef" to dbFirebase.collection("DogWalkers").document(dogWalkerId),
+            "score" to score
+        )
+        dbFirebase.collection("Reviews")
+            .add(newReview)
+            .addOnSuccessListener {
+                callbackOK()
+            }
+            .addOnFailureListener {
+                callbackError(it.message!!)
             }
     }
 }

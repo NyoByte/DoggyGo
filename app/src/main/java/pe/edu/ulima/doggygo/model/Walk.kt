@@ -22,9 +22,10 @@ class Walk(
     dogWeight: Int,
     photoUrl: String,
     note: String,
-    duration: Int
+    duration: Int,
+    dogWalkerId: String?
 ) : Contract(
     id, dogOwnerFullName, dogOwnerDistrict, date, time, dogName,
-    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null, null, duration
+    dogBreed,dogActivityLevel, dogAge,dogWeight, photoUrl, note, null, null, duration, dogWalkerId
 ), Serializable {
 }

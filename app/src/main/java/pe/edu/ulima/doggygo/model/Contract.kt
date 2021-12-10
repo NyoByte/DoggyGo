@@ -18,4 +18,5 @@ open class Contract (
     val walkRef: DocumentReference?,
     val price: Int?,
     val duration: Int,
+    val dogWalkerId: String?
 ){}

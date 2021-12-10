@@ -41,6 +41,7 @@ class WalkManager(private val context: Context) {
                             walkStarted = walk.data?.get("walkStarted") as? Timestamp,
                             walkEnded = walk.data?.get("walkEnded") as? Timestamp,
                             listLatLng = walk.data?.get("listLatLng") as? MutableList<GeoPoint>,
+                            dogWalkerId = null
                         )
                         walkList.add(newWalk)
                         if(walkList.size == contractWalkList.size){
@@ -81,7 +82,8 @@ class WalkManager(private val context: Context) {
                             poo = walk.data?.get("poo").toString().toBoolean(),
                             walkStarted = walk.data?.get("walkStarted") as? Timestamp,
                             walkEnded = walk.data?.get("walkEnded") as? Timestamp,
-                            listLatLng = walk.data?.get("listLatLng") as? MutableList<GeoPoint>
+                            listLatLng = walk.data?.get("listLatLng") as? MutableList<GeoPoint>,
+                            dogWalkerId = contract.dogWalkerId
                         )
                         walkList.add(newWalk)
                         if(walkList.size == contractWalkList.size){

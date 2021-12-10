@@ -45,7 +45,8 @@ class ContractManager(private val context: Context) {
                                         note = document.data["notes"].toString(),
                                         walkRef = document.data["walkRef"] as DocumentReference?,
                                         price = null,
-                                        duration = document.data["duration"].toString().toInt()
+                                        duration = document.data["duration"].toString().toInt(),
+                                        dogWalkerId = null
                                     )
                                     contracts.add(contract)
                                     if(contracts.size >= res.size()){
@@ -106,7 +107,8 @@ class ContractManager(private val context: Context) {
                                                 note = document.data["notes"].toString(),
                                                 walkRef = document.data["walkRef"] as DocumentReference?,
                                                 price = walkerDoc.data?.get("price").toString().toInt(),
-                                                duration = document.data["duration"].toString().toInt()
+                                                duration = document.data["duration"].toString().toInt(),
+                                                dogWalkerId = walkerDoc.id
                                             )
                                             contracts.add(contract)
                                             if(contracts.size >= res.size()){
