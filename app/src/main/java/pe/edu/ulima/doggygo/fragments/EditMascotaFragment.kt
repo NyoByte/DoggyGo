@@ -1,6 +1,9 @@
 package pe.edu.ulima.doggygo.fragments
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,14 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import pe.edu.ulima.doggygo.R
+import pe.edu.ulima.doggygo.adapter.PdfAdapter
 import pe.edu.ulima.doggygo.model.DogOwner
 import pe.edu.ulima.doggygo.model.DogWalker
 import pe.edu.ulima.doggygo.model.Pet
+import java.util.*
 
 class EditMascotaFragment: Fragment() {
 
@@ -36,6 +44,12 @@ class EditMascotaFragment: Fragment() {
         }
     }
 
+    private lateinit var progressBar: ProgressBar
+    private lateinit var iviPetEdit: ImageView
+    private lateinit var iviPetName: String
+    private lateinit var photoUrl: String
+    private val fileResult = 1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +64,10 @@ class EditMascotaFragment: Fragment() {
         val user = arguments?.getSerializable("user") as DogOwner
         var pet = arguments?.getSerializable("pet")
 
+        progressBar = view.findViewById(R.id.progressBar)
+        iviPetEdit = view.findViewById(R.id.iviPetEdit)
+        photoUrl = "https://phantom-marca.unidadeditorial.es/252acdd64f48851f815c16049a789f23/resize/1320/f/jpg/assets/multimedia/imagenes/2021/04/19/16188479459744.jpg"
+
         if(pet != null){
             pet = pet as Pet
             view.findViewById<EditText>(R.id.etePetName).setText(pet.name)
@@ -59,8 +77,9 @@ class EditMascotaFragment: Fragment() {
             view.findViewById<TextInputLayout>(R.id.tinPetSex).editText?.setText(pet.sex)
             view.findViewById<TextInputLayout>(R.id.tinPetActivityLevel).editText?.setText(pet.activityLevel)
             view.findViewById<TextInputLayout>(R.id.tinPetBreed).editText?.setText(pet.breed)
+            Glide.with(this).load(pet.photoUrl).into(iviPetEdit)
         }
-
+        progressBar.visibility = View.GONE
 
         val tinPetSex = view.findViewById<TextInputLayout>(R.id.tinPetSex)
         val sexTypeList = listOf("Masculino", "Femenino")
@@ -76,6 +95,15 @@ class EditMascotaFragment: Fragment() {
         val breedList = listOf("Pitbull", "Shiba Inu")
         val breedAdapter = ArrayAdapter(view.context,R.layout.list_items, breedList)
         (tinPetBreed?.editText as? AutoCompleteTextView)?.setAdapter(breedAdapter)
+
+        iviPetEdit.setOnClickListener{
+            Log.i("EditMascotaFragment","Click")
+            iviPetName = user.id!! + "_" + Date().time.toString()
+            fileManager()
+            progressBar.visibility = View.VISIBLE
+        }
+
+
 
         view.findViewById<Button>(R.id.btnPetGuardar).setOnClickListener {
             val name = view.findViewById<EditText>(R.id.etePetName).text.toString()
@@ -94,7 +122,7 @@ class EditMascotaFragment: Fragment() {
                 "note" to notes,
                 "activityLevel" to activityLevel,
                 "breed" to breed,
-                "photo" to "https://phantom-marca.unidadeditorial.es/252acdd64f48851f815c16049a789f23/resize/1320/f/jpg/assets/multimedia/imagenes/2021/04/19/16188479459744.jpg"
+                "photo" to photoUrl
             )
             if(pet != null){
                 dbFirestore.collection("Dogs")
@@ -130,5 +158,51 @@ class EditMascotaFragment: Fragment() {
                     }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == fileResult){
+            if(resultCode == Activity.RESULT_OK && data!= null){
+                val clipData = data.clipData
+                if(clipData!=null){
+                    for(i in 0 until clipData.itemCount){
+                        val uri = clipData.getItemAt(i).uri
+                        uri?.let {fileUpload(it)}
+                    }
+                }else{
+                    val uri = data.data
+                    uri?.let {fileUpload(it)}
+                }
+            }else{
+                progressBar.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun fileUpload(myUri: Uri){
+        val folder: StorageReference = FirebaseStorage.getInstance().reference.child("Profiles/Pets")
+        //val path = myUri.lastPathSegment.toString()
+        //val fileName: StorageReference = folder.child(path.substring(path.lastIndexOf('/')+1))
+        val fileName: StorageReference = folder.child("${iviPetName}.jpg")
+        fileName.putFile(myUri)
+            .addOnSuccessListener{
+                fileName.downloadUrl.addOnSuccessListener{ uri ->
+                    photoUrl = uri.toString()
+                    Glide.with(this).load(uri).into(iviPetEdit)
+                    progressBar.visibility = View.GONE
+                    //userManager.updateCertificate(user?.id!!,false)
+                    Log.i("EditMascotaFragment", "File upload successfully")
+                }
+            }
+            .addOnFailureListener {
+                Log.i("EditMascotaFragment","File upload error")
+            }
+    }
+
+    private fun fileManager(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, fileResult)
     }
 }
