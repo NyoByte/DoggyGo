@@ -22,7 +22,8 @@ class DogOwnerMainActivity : AppCompatActivity(),
     EditMascotaFragment.Actions,
     PerfilFragment.Actions,
     UsuarioFragment.Actions,
-    PaseoOwnerFragment.Actions {
+    PaseoOwnerFragment.Actions,
+    PaseoDetalleOwnerFragment.Actions{
 
     private val fragments = mutableListOf<Fragment>()
     private var nameFragment:String? = null
@@ -259,5 +260,9 @@ class DogOwnerMainActivity : AppCompatActivity(),
             println(error)
             Toast.makeText(this, "Error obtaining telf walker", Toast.LENGTH_SHORT).show()
         })
+    }
+
+    override fun onWalkCanceled() {
+        changeWalkFragment()
     }
 }

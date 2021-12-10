@@ -116,4 +116,35 @@ class WalkManager(private val context: Context) {
                 Log.e("PaseoDetalleWaFragment", it.message!!)
             }
     }
+
+    fun deleteWalk(walkId: String, callbackOK: () -> Unit, callbackError: (String) -> Unit){
+        dbFirebase.collection("Contracts")
+            .whereEqualTo("walkRef", dbFirebase.collection("Walks").document(walkId))
+            .get()
+            .addOnSuccessListener { res ->
+                var count = 0
+                for(document in res){
+                    document.reference
+                        .delete()
+                        .addOnSuccessListener {
+                            count++
+                            if(count >= res.size()){
+                                dbFirebase.collection("Walks")
+                                    .document(walkId)
+                                    .delete()
+                                    .addOnSuccessListener {
+                                        callbackOK()
+                                    }
+                                    .addOnFailureListener {
+                                        callbackError(it.message!!)
+                                    }
+                            }
+                        }
+                        .addOnFailureListener {
+                            callbackError(it.message!!)
+                        }
+
+                }
+            }
+    }
 }

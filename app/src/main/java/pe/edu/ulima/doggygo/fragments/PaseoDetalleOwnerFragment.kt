@@ -2,6 +2,7 @@ package pe.edu.ulima.doggygo.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -49,6 +50,21 @@ class PaseoDetalleOwnerFragment: Fragment(),
     private lateinit var mapView: MapView
     companion object {
         const val REQUEST_CODE_LOCATION = 0
+    }
+
+    interface Actions{
+        fun onWalkCanceled()
+    }
+
+    private lateinit var listener: Actions
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        listener = context as Actions
+        if(listener == null){
+            Log.e("PaseoDetllOwnerFragment", "Activity no implementa la interfaz PaseoDetalleOwnerFragment.Actions")
+        }
     }
 
     private var lat:Double = 0.0
@@ -136,7 +152,13 @@ class PaseoDetalleOwnerFragment: Fragment(),
         }
 
         btnCancelar.setOnClickListener{
-            Log.e("ButtonCancelar", "click")
+            walkManager.deleteWalk(walk?.id!!, {
+                Toast.makeText(requireActivity(), "Paseo cancelado correctamente", Toast.LENGTH_SHORT).show()
+                listener.onWalkCanceled()
+            }, {
+                Toast.makeText(requireActivity(), "Ocurrió un error al cancelar el paseo", Toast.LENGTH_SHORT).show()
+                Log.e("PaseoDetllOwnerFragment", it)
+            })
         }
 
         btnCalificar.setOnClickListener{
